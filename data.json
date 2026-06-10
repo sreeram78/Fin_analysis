@@ -1261,5 +1261,518 @@
       "wc": 6423.8,
       "wc_saved": 7620.2
     }
-  ]
+  ],
+  "risks": [
+    {
+      "name": "Reimbursement & Pricing Pressure",
+      "severity": "CRITICAL",
+      "wc_pressure_dollars": 500,
+      "dso_extension_days": 20,
+      "impact_ar": "\u2191\u2191\u2191",
+      "impact_dio": "\u2191",
+      "impact_dpo": "\u2193",
+      "impact_cf": "\u2193\u2193\u2193",
+      "key_drivers": [
+        "Medicare price-setting (ENBREL -40% Jan 2026)",
+        "State PDABs (8 states; 17 pending)",
+        "PBM consolidation (94% of Rx in 6 entities)",
+        "IRA inflation penalties + Part D redesign",
+        "340B Program exploitation"
+      ],
+      "mitigations": [
+        {
+          "action": "Supply-chain financing for wholesalers",
+          "timeline": "Q2 2025",
+          "impact": "\u221210 DSO d, ~$200\u2013300M WC"
+        },
+        {
+          "action": "Diversify payer base away from top 6 PBMs",
+          "timeline": "2025\u20132026",
+          "impact": "Lower rebate pressure 15\u201320%"
+        },
+        {
+          "action": "Dynamic / value-based contracts",
+          "timeline": "Q4 2025",
+          "impact": "Improve AR predictability"
+        },
+        {
+          "action": "Quarterly rebate accrual updates",
+          "timeline": "Monthly",
+          "impact": "Reduce disputes 25\u201330%"
+        },
+        {
+          "action": "340B compliance & tracking",
+          "timeline": "2025",
+          "impact": "Recover 1\u20132% revenue leakage"
+        }
+      ],
+      "wc_release": "$200M\u2013$300M",
+      "timeline": "0\u20136 months"
+    },
+    {
+      "name": "Global Economic Conditions & Payer Insolvency",
+      "severity": "CRITICAL",
+      "wc_pressure_dollars": 400,
+      "dso_extension_days": 30,
+      "impact_ar": "\u2191\u2191",
+      "impact_dio": "\u2191",
+      "impact_dpo": "\u2193\u2193",
+      "impact_cf": "\u2193\u2193\u2193",
+      "key_drivers": [
+        "Government fiscal pressures (U.S., EU, EM)",
+        "High inflation \u2192 payer cost containment",
+        "Wholesaler creditworthiness at risk",
+        "Top 3 wholesalers = 77% of revenue"
+      ],
+      "mitigations": [
+        {
+          "action": "Monthly wholesaler credit monitoring",
+          "timeline": "Ongoing",
+          "impact": "60\u201390 day early warning"
+        },
+        {
+          "action": "Secondary wholesaler diversification",
+          "timeline": "2025\u20132026",
+          "impact": "77%\u219265\u201370% concentration"
+        },
+        {
+          "action": "Expand FX hedging 60%\u219285%",
+          "timeline": "Q2 2025",
+          "impact": "Cut forex AR volatility ~70%"
+        },
+        {
+          "action": "Increase bad-debt allowance 0.5%\u21920.8\u20131.0%",
+          "timeline": "Q2 2025",
+          "impact": "Buffer 1\u20132% doubtful AR"
+        }
+      ],
+      "wc_release": "$150M\u2013$250M",
+      "timeline": "0\u201312 months"
+    },
+    {
+      "name": "Horizon Integration & Supply-Chain Consolidation",
+      "severity": "CRITICAL",
+      "wc_pressure_dollars": 600,
+      "dio_expansion_days": 30,
+      "impact_ar": "\u2191",
+      "impact_dio": "\u2191\u2191\u2191",
+      "impact_dpo": "\u2193",
+      "impact_cf": "\u2193\u2193",
+      "key_drivers": [
+        "30+ CMOs added; many single-source",
+        "TEPEZZA/KRYSTEXXA CMOs in Israel (conflict)",
+        "Dual logistics during transition",
+        "Horizon DIO burden raises group DIO"
+      ],
+      "mitigations": [
+        {
+          "action": "Dual-source critical CMOs",
+          "timeline": "2025\u20132026",
+          "impact": "De-risk Israel single-source"
+        },
+        {
+          "action": "Demand-driven replenishment",
+          "timeline": "Q3 2025",
+          "impact": "\u221220\u201330 DIO d ($500\u2013750M)"
+        },
+        {
+          "action": "Consignment inventory for top CMOs",
+          "timeline": "Q4 2025",
+          "impact": "Shift inventory cost to CMO"
+        },
+        {
+          "action": "Complete SAP/ERP integration",
+          "timeline": "Q4 2025",
+          "impact": "Recover $100\u2013150M via DPO"
+        },
+        {
+          "action": "Harmonize Horizon DPO 45\u219270d",
+          "timeline": "2025\u20132026",
+          "impact": "+15\u201320 DPO d"
+        }
+      ],
+      "wc_release": "$400M\u2013$600M",
+      "timeline": "6\u201318 months"
+    },
+    {
+      "name": "Manufacturing Disruptions & Supply Chain",
+      "severity": "CRITICAL",
+      "wc_pressure_dollars": 450,
+      "dio_expansion_days": 25,
+      "impact_ar": "\u2191",
+      "impact_dio": "\u2191\u2191\u2191",
+      "impact_dpo": "\u2193",
+      "impact_cf": "\u2193\u2193",
+      "key_drivers": [
+        "75% commercial mfg in Puerto Rico",
+        "Hurricane / grid / earthquake exposure",
+        "Single-source suppliers (SureClick autoinjectors)",
+        "Geopolitical supplier disruption"
+      ],
+      "mitigations": [
+        {
+          "action": "Accelerate Holly Springs NC capacity",
+          "timeline": "2025\u20132026",
+          "impact": "PR 75%\u219260\u201365%"
+        },
+        {
+          "action": "Dynamic seasonal safety-stock model",
+          "timeline": "Q2 2025",
+          "impact": "\u221220\u201330 DIO d ($200\u2013300M)"
+        },
+        {
+          "action": "Qualify 2nd source for critical suppliers",
+          "timeline": "2025\u20132026",
+          "impact": "Lower safety-stock premium"
+        },
+        {
+          "action": "Parametric supply-chain insurance",
+          "timeline": "Q3 2025",
+          "impact": "Protect OCF if 7+ days offline"
+        },
+        {
+          "action": "Regional distribution hubs",
+          "timeline": "2025",
+          "impact": "Cut order-to-delivery time"
+        }
+      ],
+      "wc_release": "$200M\u2013$300M",
+      "timeline": "6\u201324 months"
+    },
+    {
+      "name": "Biosimilar & Generic Competition",
+      "severity": "HIGH",
+      "wc_pressure_dollars": 350,
+      "dio_expansion_days": 30,
+      "impact_ar": "\u2191",
+      "impact_dio": "\u2191\u2191",
+      "impact_dpo": "\u2192",
+      "impact_cf": "\u2193",
+      "key_drivers": [
+        "Prolia/XGEVA LoE Feb 2025 (US)",
+        "ENBREL biosimilar erosion accelerating",
+        "Neulasta biosimilars; Otezla generics imminent",
+        "Price erosion 20\u201340%"
+      ],
+      "mitigations": [
+        {
+          "action": "Pre-launch inventory run-down",
+          "timeline": "2025",
+          "impact": "Avoid 30\u201350 d buildup post-LoE"
+        },
+        {
+          "action": "Agile pricing / rebating engine",
+          "timeline": "Q2 2025",
+          "impact": "Maintain pricing power"
+        },
+        {
+          "action": "Inventory clearance channels",
+          "timeline": "Q2\u2013Q4 2025",
+          "impact": "Cash within 30\u201360 d"
+        },
+        {
+          "action": "Rotate to growth assets",
+          "timeline": "Ongoing",
+          "impact": "Repatha, IMDELLTRA, MariTide"
+        }
+      ],
+      "wc_release": "$150M\u2013$250M",
+      "timeline": "0\u201312 months"
+    },
+    {
+      "name": "Cybersecurity & IT Disruptions",
+      "severity": "HIGH",
+      "wc_pressure_dollars": 200,
+      "dso_extension_days": 15,
+      "impact_ar": "\u2191\u2191",
+      "impact_dio": "\u2191",
+      "impact_dpo": "\u2192",
+      "impact_cf": "\u2193\u2193",
+      "key_drivers": [
+        "IT outages delay order-to-cash",
+        "Ransomware (e.g. Change Healthcare Feb 2024)",
+        "Third-party vendor breaches",
+        "Post-Horizon system integration risk"
+      ],
+      "mitigations": [
+        {
+          "action": "Redundant order-processing backup",
+          "timeline": "Q3 2025",
+          "impact": "Cut outage impact 5\u201315d\u21921\u20132d"
+        },
+        {
+          "action": "Quarterly DR simulations",
+          "timeline": "Q2 2025",
+          "impact": "Halve outage duration"
+        },
+        {
+          "action": "Ransomware liquidity reserve",
+          "timeline": "Q3 2025",
+          "impact": "Hold DSO through 7\u201314d outage"
+        },
+        {
+          "action": "Continuous third-party risk monitoring",
+          "timeline": "Ongoing",
+          "impact": "30\u201360 d vendor warning"
+        }
+      ],
+      "wc_release": "$100M\u2013$150M",
+      "timeline": "6\u201312 months"
+    },
+    {
+      "name": "International Operations & Currency Risk",
+      "severity": "MEDIUM",
+      "wc_pressure_dollars": 250,
+      "dso_extension_days": 15,
+      "impact_ar": "\u2191",
+      "impact_dio": "\u2191",
+      "impact_dpo": "\u2192",
+      "impact_cf": "\u2193",
+      "key_drivers": [
+        "~27% sales ex-U.S.",
+        "EM currency depreciation / inflation",
+        "Ukraine / Middle East disruption",
+        "China clinical-trial & data restrictions"
+      ],
+      "mitigations": [
+        {
+          "action": "FX hedging 60%\u219285% of EM exposure",
+          "timeline": "Q2 2025",
+          "impact": "Cut forex AR volatility ~70%"
+        },
+        {
+          "action": "Geo-specific DSO targets",
+          "timeline": "Monthly",
+          "impact": "EM 60d / DM 30d"
+        },
+        {
+          "action": "Pre-position inventory in regional hubs",
+          "timeline": "Q2 2025",
+          "impact": "In-transit 30d\u219210\u201315d"
+        },
+        {
+          "action": "Local-currency borrowing",
+          "timeline": "2025\u20132026",
+          "impact": "Cut forex WC swings 30\u201340%"
+        }
+      ],
+      "wc_release": "$100M\u2013$150M",
+      "timeline": "6\u201318 months"
+    },
+    {
+      "name": "Clinical Trial & Regulatory Delays",
+      "severity": "MEDIUM",
+      "wc_pressure_dollars": 200,
+      "dio_expansion_days": 15,
+      "impact_ar": "\u2192",
+      "impact_dio": "\u2191",
+      "impact_dpo": "\u2192",
+      "impact_cf": "\u2193\u2193",
+      "key_drivers": [
+        "Phase 3 delays extend approvals 12\u201324mo",
+        "Slower FDA/EMA (staffing cuts)",
+        "Rare-disease enrollment difficulty",
+        "Geopolitical site disruption"
+      ],
+      "mitigations": [
+        {
+          "action": "Trial-site diversification",
+          "timeline": "2025\u20132026",
+          "impact": "Cut geo disruption 40\u201350%"
+        },
+        {
+          "action": "JIT clinical manufacturing",
+          "timeline": "Q2 2025",
+          "impact": "Halve clinical inventory build"
+        },
+        {
+          "action": "Early FDA/EMA pre-submission alignment",
+          "timeline": "Ongoing",
+          "impact": "\u22123\u20136 mo approval time"
+        },
+        {
+          "action": "Digital patient recruitment",
+          "timeline": "Q2 2025",
+          "impact": "\u22126\u201312 mo trial length"
+        }
+      ],
+      "wc_release": "$50M\u2013$150M",
+      "timeline": "12\u201324 months"
+    },
+    {
+      "name": "Litigation & Government Investigations",
+      "severity": "MEDIUM",
+      "wc_pressure_dollars": 150,
+      "impact_ar": "\u2192",
+      "impact_dio": "\u2192",
+      "impact_dpo": "\u2192",
+      "impact_cf": "\u2193",
+      "key_drivers": [
+        "Product liability claims",
+        "DOJ/State AG pricing & 340B investigations",
+        "Corporate integrity compliance costs",
+        "Biosimilar patent litigation"
+      ],
+      "mitigations": [
+        {
+          "action": "Quarterly litigation reserve review",
+          "timeline": "Quarterly",
+          "impact": "Cash predictability"
+        },
+        {
+          "action": "Compliance automation",
+          "timeline": "2025\u20132026",
+          "impact": "Cut compliance labor 30\u201340%"
+        },
+        {
+          "action": "Proactive government relations",
+          "timeline": "Ongoing",
+          "impact": "Narrow investigation scope"
+        },
+        {
+          "action": "Insurance optimization",
+          "timeline": "2025",
+          "impact": "Cut premiums 10\u201315%"
+        }
+      ],
+      "wc_release": "$50M\u2013$100M",
+      "timeline": "12\u201324 months"
+    },
+    {
+      "name": "Concentration & Consolidation Risks",
+      "severity": "HIGH",
+      "wc_pressure_dollars": 300,
+      "dso_extension_days": 20,
+      "impact_ar": "\u2191\u2191",
+      "impact_dio": "\u2192",
+      "impact_dpo": "\u2193",
+      "impact_cf": "\u2193",
+      "key_drivers": [
+        "77% revenue via 3 wholesalers",
+        "6 PBMs control 94% of Rx",
+        "Reduced bargaining power",
+        "Systemic distress risk"
+      ],
+      "mitigations": [
+        {
+          "action": "Secondary wholesaler network",
+          "timeline": "2025\u20132027",
+          "impact": "77%\u219265\u201370%"
+        },
+        {
+          "action": "Direct-to-pharmacy programs",
+          "timeline": "2025\u20132026",
+          "impact": "Bypass 5\u201310% volume"
+        },
+        {
+          "action": "Direct-to-PBM contracts (2nd/3rd tier)",
+          "timeline": "2025",
+          "impact": "Lower rebate pressure"
+        },
+        {
+          "action": "Wholesaler credit insurance",
+          "timeline": "Q3 2025",
+          "impact": "Insure 90+ d revenue loss"
+        }
+      ],
+      "wc_release": "$100M\u2013$200M",
+      "timeline": "12\u201336 months"
+    },
+    {
+      "name": "Tax & Regulatory Changes",
+      "severity": "LOW",
+      "wc_pressure_dollars": 100,
+      "impact_ar": "\u2192",
+      "impact_dio": "\u2192",
+      "impact_dpo": "\u2192",
+      "impact_cf": "\u2193\u2193",
+      "key_drivers": [
+        "IRS dispute 2010\u20132015: $2.7B+ at risk (decision 2026+)",
+        "OECD 15% minimum tax",
+        "Puerto Rico Act 60 incentives at risk",
+        "Potential $1\u20133B cash outlay if IRS prevails"
+      ],
+      "mitigations": [
+        {
+          "action": "Quarterly tax accrual management",
+          "timeline": "Quarterly",
+          "impact": "Cash predictability"
+        },
+        {
+          "action": "Partial IRS settlement offers",
+          "timeline": "2025\u20132026",
+          "impact": "Cap exposure $1\u20131.5B"
+        },
+        {
+          "action": "OECD Pillar 2 planning",
+          "timeline": "2025\u20132026",
+          "impact": "\u22121\u20132 pp tax rate"
+        },
+        {
+          "action": "Puerto Rico contingency modeling",
+          "timeline": "2025",
+          "impact": "Understand relocation cost"
+        }
+      ],
+      "wc_release": "$0M (risk mitigation)",
+      "timeline": "12\u201336 months"
+    },
+    {
+      "name": "Environmental, Climate & Natural Disasters",
+      "severity": "MEDIUM",
+      "wc_pressure_dollars": 250,
+      "dio_expansion_days": 20,
+      "impact_ar": "\u2192",
+      "impact_dio": "\u2191\u2191",
+      "impact_dpo": "\u2193",
+      "impact_cf": "\u2193\u2193",
+      "key_drivers": [
+        "Puerto Rico hurricane risk",
+        "California wildfires (Jan 2025)",
+        "Pre-hurricane inventory build $300\u2013500M",
+        "Post-disaster write-off 2\u20135%"
+      ],
+      "mitigations": [
+        {
+          "action": "Distributed pre-hurricane inventory",
+          "timeline": "Q2\u2013Q5 annually",
+          "impact": "Lower DIO buildup"
+        },
+        {
+          "action": "Disaster-recovery fund",
+          "timeline": "2025",
+          "impact": "$500M\u20131B repair reserve"
+        },
+        {
+          "action": "Parametric disaster insurance",
+          "timeline": "Q3 2025",
+          "impact": "$100\u2013200M loss coverage"
+        },
+        {
+          "action": "Manufacturing diversification",
+          "timeline": "2025\u20132026",
+          "impact": "PR 75%\u219250\u201355%"
+        },
+        {
+          "action": "PFAS transition plan",
+          "timeline": "2025\u20132027",
+          "impact": "Avoid sudden ban impact"
+        }
+      ],
+      "wc_release": "$100M\u2013$200M",
+      "timeline": "12\u201336 months"
+    }
+  ],
+  "risk_summary": {
+    "total_risks": 12,
+    "critical": 4,
+    "high": 3,
+    "medium": 4,
+    "low": 1,
+    "total_wc_pressure": 3750,
+    "wc_release_low": 1200,
+    "wc_release_high": 2000,
+    "current_ccc": 274,
+    "peer_median_ccc": 183
+  }
 }

@@ -679,6 +679,7 @@ $('#tabs').addEventListener('click',e=>{
   if(b.dataset.v==='workcap')drawWorkcap();
   if(b.dataset.v==='valuation')drawValuation();
   if(b.dataset.v==='scenarios')drawScenarios();
+  if(b.dataset.v==='risks')drawRisks();
 });
 
 /* ---------- LANDING statements — all periods + sparklines ---------- */
@@ -1829,10 +1830,12 @@ $('#personaTabs').addEventListener('click',e=>{
 });
 
 /* init */
-buildLanding();buildKpis();buildAnomalies();drawRisks();
+buildLanding();buildKpis();buildAnomalies();
 
 /* ---------- RISK ANALYSIS ---------- */
+let risksDrawn=false;
 function drawRisks(){
+  if(risksDrawn)return;risksDrawn=true;
   const risks=DATA.risks;const summary=DATA.risk_summary;
   const grid={grid:{color:PALETTE.grid},border:{display:false}};
   
@@ -1875,7 +1878,7 @@ function drawRisks(){
   
   // DSO impact by risk (horizontal bar)
   const dsoRisks=risks.filter(r=>r.dso_extension_days).sort((a,b)=>(b.dso_extension_days||0)-(a.dso_extension_days||0));
-  new Chart($('#cRiskDso'),{type:'barh',data:{labels:dsoRisks.map((r,i)=>(i+1)+'. '+r.name.substring(0,28)),
+  new Chart($('#cRiskDso'),{type:'bar',data:{labels:dsoRisks.map((r,i)=>(i+1)+'. '+r.name.substring(0,28)),
     datasets:[{label:'DSO Extension (days)',data:dsoRisks.map(r=>r.dso_extension_days||0),
       backgroundColor:dsoRisks.map(r=>({CRITICAL:PALETTE.rust,HIGH:PALETTE.gold,MEDIUM:PALETTE.teal}[r.severity]||PALETTE.muted)),borderRadius:2}]},
     options:{indexAxis:'y',maintainAspectRatio:false,plugins:{legend:{display:false},
@@ -1884,7 +1887,7 @@ function drawRisks(){
   
   // DIO impact by risk (horizontal bar)
   const dioRisks=risks.filter(r=>r.dio_expansion_days).sort((a,b)=>(b.dio_expansion_days||0)-(a.dio_expansion_days||0));
-  new Chart($('#cRiskDio'),{type:'barh',data:{labels:dioRisks.map((r,i)=>(i+1)+'. '+r.name.substring(0,28)),
+  new Chart($('#cRiskDio'),{type:'bar',data:{labels:dioRisks.map((r,i)=>(i+1)+'. '+r.name.substring(0,28)),
     datasets:[{label:'DIO Expansion (days)',data:dioRisks.map(r=>r.dio_expansion_days||0),
       backgroundColor:dioRisks.map(r=>({CRITICAL:PALETTE.rust,HIGH:PALETTE.gold,MEDIUM:PALETTE.teal}[r.severity]||PALETTE.muted)),borderRadius:2}]},
     options:{indexAxis:'y',maintainAspectRatio:false,plugins:{legend:{display:false},
@@ -1896,7 +1899,7 @@ function drawRisks(){
     const r=risks.find(x=>x.name.includes(name.split('&')[0].split('/')[0]));
     return{name:name,days:r?-15:0};
   });
-  new Chart($('#cRiskDpo'),{type:'barh',data:{labels:dpoBars.map(b=>b.name),
+  new Chart($('#cRiskDpo'),{type:'bar',data:{labels:dpoBars.map(b=>b.name),
     datasets:[{label:'DPO Pressure (days)',data:dpoBars.map(b=>b.days),
       backgroundColor:dpoBars.map(b=>b.days<-10?PALETTE.rust:PALETTE.gold),borderRadius:2}]},
     options:{indexAxis:'y',maintainAspectRatio:false,plugins:{legend:{display:false},
@@ -2035,7 +2038,7 @@ function generateAnswer(q){
   
   // Keyword detection & answer generation
   if(q_lower.match(/\b(revenue|sales|top.?line)\b/i)){
-    const fy25=D.pl[2025];return `FY25 revenue was <b>${fmtB(fy25.total)}</b> (+10.3% YoY). 5-year CAGR: 8.7% (from $26.3B). ${chatState.persona==='director'?'Q1'26 continued momentum: $'+fmtB(D.q['2026Q1'].revenue):''}`;
+    const fy25=D.pl[2025];return `FY25 revenue was <b>${fmtB(fy25.total)}</b> (+10.3% YoY). 5-year CAGR: 8.7% (from $26.3B). ${chatState.persona==='director'?'Q1 2026 continued momentum: '+fmtB(D.q['2026Q1'].revenue):''}`;
   }
   if(q_lower.match(/\b(free cash|fcf|cash flow)\b/i)){
     const fy25=D.cf[2025];const avg5y=(D.cf[2021].fcf+D.cf[2022].fcf+D.cf[2023].fcf+D.cf[2024].fcf+D.cf[2025].fcf)/5;
@@ -2320,8 +2323,6 @@ window.RISK_DATA = {
     "potential_cash_impact_annual": "$1-5B (excluding IRS contingency)"
   }
 };
-DATA.risks = RISK_DATA.risk_factors;
-DATA.risk_summary = RISK_DATA.summary;
 
 window.addEventListener('load',()=>{initChatbot();});
 document.addEventListener('keypress',e=>{if(e.key==='Enter'&&document.getElementById('chatInput')===document.activeElement)sendMessage();});
