@@ -1,0 +1,1265 @@
+{
+  "pl": {
+    "2021": {
+      "product": 24297,
+      "other": 2010,
+      "total": 26307,
+      "cogs": 5993,
+      "rnd": 4819,
+      "sga": 5368,
+      "other_op": 525,
+      "op_income": 9608,
+      "int_exp": -1374,
+      "other_inc": -571,
+      "pretax": 7663,
+      "tax": 826,
+      "net": 6837,
+      "eps": 12.18,
+      "shares": 569
+    },
+    "2022": {
+      "product": 24801,
+      "other": 2526,
+      "total": 26323,
+      "cogs": 6049,
+      "rnd": 4434,
+      "sga": 5920,
+      "other_op": 355,
+      "op_income": 9566,
+      "int_exp": -1406,
+      "other_inc": -44,
+      "pretax": 8116,
+      "tax": 1564,
+      "net": 6552,
+      "eps": 12.11,
+      "shares": 541
+    },
+    "2023": {
+      "product": 26910,
+      "other": 1307,
+      "total": 28190,
+      "cogs": 8108,
+      "rnd": 4784,
+      "sga": 6118,
+      "other_op": 1283,
+      "op_income": 7897,
+      "int_exp": -2782,
+      "other_inc": 2387,
+      "pretax": 7502,
+      "tax": 785,
+      "net": 6717,
+      "eps": 12.49,
+      "shares": 538
+    },
+    "2024": {
+      "product": 32026,
+      "other": 1394,
+      "total": 33420,
+      "cogs": 9400,
+      "rnd": 5961,
+      "sga": 6480,
+      "other_op": 1518,
+      "op_income": 10061,
+      "int_exp": -2974,
+      "other_inc": -12,
+      "pretax": 7075,
+      "tax": -1019,
+      "net": 4090,
+      "eps": 7.56,
+      "shares": 541
+    },
+    "2025": {
+      "product": 35349,
+      "other": 1454,
+      "total": 36803,
+      "cogs": 9100,
+      "rnd": 7272,
+      "sga": 6700,
+      "other_op": 1300,
+      "op_income": 12431,
+      "int_exp": -2800,
+      "other_inc": 600,
+      "pretax": 10231,
+      "tax": 2510,
+      "net": 7721,
+      "eps": 14.23,
+      "shares": 543
+    }
+  },
+  "bs": {
+    "2021": {
+      "cash": 7989,
+      "receivables": 6826,
+      "inventory": 4159,
+      "cur_assets": 24438,
+      "ppe": 5006,
+      "goodwill": 14998,
+      "intangibles": 21528,
+      "total_assets": 61165,
+      "cur_liab": 15426,
+      "lt_debt": 33122,
+      "total_liab": 58154,
+      "equity": 3011,
+      "total_debt": 37354
+    },
+    "2022": {
+      "cash": 7629,
+      "receivables": 6989,
+      "inventory": 5174,
+      "cur_assets": 24326,
+      "ppe": 5232,
+      "goodwill": 14963,
+      "intangibles": 18435,
+      "total_assets": 65121,
+      "cur_liab": 17829,
+      "lt_debt": 38943,
+      "total_liab": 61509,
+      "equity": 3612,
+      "total_debt": 39078
+    },
+    "2023": {
+      "cash": 10944,
+      "receivables": 8048,
+      "inventory": 6177,
+      "cur_assets": 27734,
+      "ppe": 6210,
+      "goodwill": 18648,
+      "intangibles": 33866,
+      "total_assets": 97154,
+      "cur_liab": 20185,
+      "lt_debt": 63170,
+      "total_liab": 89697,
+      "equity": 7457,
+      "total_debt": 64619
+    },
+    "2024": {
+      "cash": 11973,
+      "receivables": 8048,
+      "inventory": 5965,
+      "cur_assets": 29262,
+      "ppe": 7593,
+      "goodwill": 18674,
+      "intangibles": 23932,
+      "total_assets": 91839,
+      "cur_liab": 21283,
+      "lt_debt": 53048,
+      "total_liab": 85962,
+      "equity": 5877,
+      "total_debt": 60134
+    },
+    "2025": {
+      "cash": 9129,
+      "receivables": 9570,
+      "inventory": 6225,
+      "cur_assets": 29057,
+      "ppe": 7913,
+      "goodwill": 18680,
+      "intangibles": 22276,
+      "total_assets": 90586,
+      "cur_liab": 25489,
+      "lt_debt": 50005,
+      "total_liab": 81928,
+      "equity": 8658,
+      "total_debt": 54604
+    }
+  },
+  "cf": {
+    "2021": {
+      "ocf": 9261,
+      "capex": 880,
+      "fcf": 8381,
+      "divs": 4361
+    },
+    "2022": {
+      "ocf": 9722,
+      "capex": 936,
+      "fcf": 8786,
+      "divs": 4214
+    },
+    "2023": {
+      "ocf": 8471,
+      "capex": 1233,
+      "fcf": 7238,
+      "divs": 4448
+    },
+    "2024": {
+      "ocf": 11519,
+      "capex": 1119,
+      "fcf": 10400,
+      "divs": 4630
+    },
+    "2025": {
+      "ocf": 10100,
+      "capex": 2000,
+      "fcf": 8100,
+      "divs": 5160
+    }
+  },
+  "q": {
+    "2026Q1": {
+      "product": 8218,
+      "other": 400,
+      "total": 8618,
+      "cogs": 2744,
+      "rnd": 1719,
+      "sga": 1602,
+      "other_op": -113,
+      "op_income": 2666,
+      "int_exp": -657,
+      "other_inc": 75,
+      "pretax": 2084,
+      "tax": 265,
+      "net": 1819,
+      "eps": 3.34,
+      "ocf": 2189,
+      "capex": 712,
+      "fcf": 1477
+    },
+    "2025Q1": {
+      "product": 7873,
+      "other": 276,
+      "total": 8149,
+      "cogs": 2968,
+      "rnd": 1486,
+      "sga": 1687,
+      "other_op": 830,
+      "op_income": 1178,
+      "int_exp": -723,
+      "other_inc": 1518,
+      "pretax": 1973,
+      "tax": 243,
+      "net": 1730,
+      "eps": 3.2,
+      "ocf": 1391,
+      "capex": 411,
+      "fcf": 980
+    }
+  },
+  "kpis": {
+    "2021": {
+      "gross_margin": 75.3,
+      "op_margin": 39.5,
+      "net_margin": 26.0,
+      "rnd_intensity": 19.8,
+      "sga_ratio": 22.1,
+      "fcf_margin": 31.9,
+      "fcf_conv": 122.6,
+      "debt_to_equity": 12.41,
+      "debt_to_assets": 61.1,
+      "current_ratio": 1.58,
+      "roa": 11.2,
+      "roe": 227.1,
+      "asset_turnover": 0.43,
+      "div_payout": 63.8,
+      "inventory": 4159,
+      "eps": 12.18
+    },
+    "2022": {
+      "gross_margin": 75.6,
+      "op_margin": 38.6,
+      "net_margin": 24.9,
+      "rnd_intensity": 17.9,
+      "sga_ratio": 23.9,
+      "fcf_margin": 33.4,
+      "fcf_conv": 134.1,
+      "debt_to_equity": 10.82,
+      "debt_to_assets": 60.0,
+      "current_ratio": 1.36,
+      "roa": 10.1,
+      "roe": 181.4,
+      "asset_turnover": 0.4,
+      "div_payout": 64.3,
+      "inventory": 5174,
+      "eps": 12.11
+    },
+    "2023": {
+      "gross_margin": 69.9,
+      "op_margin": 29.3,
+      "net_margin": 23.8,
+      "rnd_intensity": 17.8,
+      "sga_ratio": 22.7,
+      "fcf_margin": 25.7,
+      "fcf_conv": 107.8,
+      "debt_to_equity": 8.67,
+      "debt_to_assets": 66.5,
+      "current_ratio": 1.37,
+      "roa": 6.9,
+      "roe": 90.1,
+      "asset_turnover": 0.29,
+      "div_payout": 66.2,
+      "inventory": 6177,
+      "eps": 12.49
+    },
+    "2024": {
+      "gross_margin": 70.6,
+      "op_margin": 31.4,
+      "net_margin": 12.2,
+      "rnd_intensity": 18.6,
+      "sga_ratio": 20.2,
+      "fcf_margin": 31.1,
+      "fcf_conv": 254.3,
+      "debt_to_equity": 10.23,
+      "debt_to_assets": 65.5,
+      "current_ratio": 1.37,
+      "roa": 4.5,
+      "roe": 69.6,
+      "asset_turnover": 0.36,
+      "div_payout": 113.2,
+      "inventory": 5965,
+      "eps": 7.56
+    },
+    "2025": {
+      "gross_margin": 74.3,
+      "op_margin": 35.2,
+      "net_margin": 21.0,
+      "rnd_intensity": 20.6,
+      "sga_ratio": 19.0,
+      "fcf_margin": 22.0,
+      "fcf_conv": 104.9,
+      "debt_to_equity": 6.31,
+      "debt_to_assets": 60.3,
+      "current_ratio": 1.14,
+      "roa": 8.5,
+      "roe": 89.2,
+      "asset_turnover": 0.41,
+      "div_payout": 66.8,
+      "inventory": 6225,
+      "eps": 14.23
+    }
+  },
+  "years": [
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+  ],
+  "products": [
+    {
+      "name": "Repatha",
+      "q26": 876,
+      "q25": 656,
+      "us": 465,
+      "exus": 411,
+      "area": "General Medicine",
+      "growth": 33.5
+    },
+    {
+      "name": "Prolia",
+      "q26": 727,
+      "q25": 1099,
+      "us": 461,
+      "exus": 266,
+      "area": "General Medicine",
+      "growth": -33.8
+    },
+    {
+      "name": "EVENITY",
+      "q26": 562,
+      "q25": 442,
+      "us": 431,
+      "exus": 131,
+      "area": "General Medicine",
+      "growth": 27.1
+    },
+    {
+      "name": "TEPEZZA",
+      "q26": 490,
+      "q25": 381,
+      "us": 424,
+      "exus": 66,
+      "area": "Rare Disease",
+      "growth": 28.6
+    },
+    {
+      "name": "Otezla",
+      "q26": 431,
+      "q25": 437,
+      "us": 352,
+      "exus": 79,
+      "area": "Inflammation",
+      "growth": -1.4
+    },
+    {
+      "name": "BLINCYTO",
+      "q26": 415,
+      "q25": 370,
+      "us": 221,
+      "exus": 194,
+      "area": "Oncology",
+      "growth": 12.2
+    },
+    {
+      "name": "Nplate",
+      "q26": 412,
+      "q25": 313,
+      "us": 283,
+      "exus": 129,
+      "area": "General Medicine",
+      "growth": 31.6
+    },
+    {
+      "name": "XGEVA",
+      "q26": 411,
+      "q25": 566,
+      "us": 228,
+      "exus": 183,
+      "area": "Oncology",
+      "growth": -27.4
+    },
+    {
+      "name": "TEZSPIRE",
+      "q26": 343,
+      "q25": 285,
+      "us": 343,
+      "exus": 0,
+      "area": "Inflammation",
+      "growth": 20.4
+    },
+    {
+      "name": "KYPROLIS",
+      "q26": 330,
+      "q25": 324,
+      "us": 218,
+      "exus": 112,
+      "area": "Oncology",
+      "growth": 1.9
+    },
+    {
+      "name": "ENBREL",
+      "q26": 320,
+      "q25": 510,
+      "us": 314,
+      "exus": 6,
+      "area": "Inflammation",
+      "growth": -37.3
+    },
+    {
+      "name": "Aranesp",
+      "q26": 311,
+      "q25": 340,
+      "us": 77,
+      "exus": 234,
+      "area": "General Medicine",
+      "growth": -8.5
+    },
+    {
+      "name": "Vectibix",
+      "q26": 287,
+      "q25": 267,
+      "us": 136,
+      "exus": 151,
+      "area": "Oncology",
+      "growth": 7.5
+    },
+    {
+      "name": "UPLIZNA",
+      "q26": 262,
+      "q25": 91,
+      "us": 246,
+      "exus": 16,
+      "area": "Rare Disease",
+      "growth": 187.9
+    },
+    {
+      "name": "IMDELLTRA",
+      "q26": 258,
+      "q25": 81,
+      "us": 188,
+      "exus": 70,
+      "area": "Oncology",
+      "growth": 218.5
+    },
+    {
+      "name": "KRYSTEXXA",
+      "q26": 255,
+      "q25": 236,
+      "us": 255,
+      "exus": 0,
+      "area": "Rare Disease",
+      "growth": 8.1
+    },
+    {
+      "name": "Other",
+      "q26": 1528,
+      "q25": 1475,
+      "us": 1131,
+      "exus": 397,
+      "area": "Other",
+      "growth": 3.6
+    }
+  ],
+  "anomalies": [
+    {
+      "statement": "Balance Sheet",
+      "line": "goodwill",
+      "year": 2023,
+      "yoy": 24.6,
+      "zscore": 1.73,
+      "mean": 6.1
+    },
+    {
+      "statement": "P&L",
+      "line": "other_op",
+      "year": 2023,
+      "yoy": 261.4,
+      "zscore": 1.71,
+      "mean": 58.2
+    },
+    {
+      "statement": "Balance Sheet",
+      "line": "total_debt",
+      "year": 2023,
+      "yoy": 65.4,
+      "zscore": 1.71,
+      "mean": 13.5
+    },
+    {
+      "statement": "Balance Sheet",
+      "line": "intangibles",
+      "year": 2023,
+      "yoy": 83.7,
+      "zscore": 1.7,
+      "mean": 8.3
+    }
+  ],
+  "product_anomalies": [
+    {
+      "product": "IMDELLTRA",
+      "area": "Oncology",
+      "growth": 218.5,
+      "zscore": 2.73,
+      "q26": 258,
+      "q25": 81
+    },
+    {
+      "product": "UPLIZNA",
+      "area": "Rare Disease",
+      "growth": 187.9,
+      "zscore": 2.29,
+      "q26": 262,
+      "q25": 91
+    },
+    {
+      "product": "ENBREL",
+      "area": "Inflammation",
+      "growth": -37.3,
+      "zscore": -0.96,
+      "q26": 320,
+      "q25": 510
+    },
+    {
+      "product": "Prolia",
+      "area": "General Medicine",
+      "growth": -33.8,
+      "zscore": -0.91,
+      "q26": 727,
+      "q25": 1099
+    },
+    {
+      "product": "XGEVA",
+      "area": "Oncology",
+      "growth": -27.4,
+      "zscore": -0.82,
+      "q26": 411,
+      "q25": 566
+    },
+    {
+      "product": "Repatha",
+      "area": "General Medicine",
+      "growth": 33.5,
+      "zscore": 0.06,
+      "q26": 876,
+      "q25": 656
+    },
+    {
+      "product": "EVENITY",
+      "area": "General Medicine",
+      "growth": 27.1,
+      "zscore": -0.03,
+      "q26": 562,
+      "q25": 442
+    },
+    {
+      "product": "Nplate",
+      "area": "General Medicine",
+      "growth": 31.6,
+      "zscore": 0.03,
+      "q26": 412,
+      "q25": 313
+    },
+    {
+      "product": "TEPEZZA",
+      "area": "Rare Disease",
+      "growth": 28.6,
+      "zscore": -0.01,
+      "q26": 490,
+      "q25": 381
+    }
+  ],
+  "prod_mean_growth": 29.3,
+  "wc": {
+    "2021": {
+      "dso": 94.7,
+      "dio": 253.3,
+      "dpo": 71.0,
+      "ccc": 277.0,
+      "op_cycle": 348.0,
+      "ap": 1165,
+      "receivables": 6826,
+      "inventory": 4159
+    },
+    "2022": {
+      "dso": 96.9,
+      "dio": 312.2,
+      "dpo": 78.6,
+      "ccc": 330.5,
+      "op_cycle": 409.1,
+      "ap": 1303,
+      "receivables": 6989,
+      "inventory": 5174
+    },
+    "2023": {
+      "dso": 104.2,
+      "dio": 278.1,
+      "dpo": 77.4,
+      "ccc": 304.9,
+      "op_cycle": 382.3,
+      "ap": 1720,
+      "receivables": 8048,
+      "inventory": 6177
+    },
+    "2024": {
+      "dso": 87.9,
+      "dio": 231.6,
+      "dpo": 64.1,
+      "ccc": 255.4,
+      "op_cycle": 319.5,
+      "ap": 1650,
+      "receivables": 8048,
+      "inventory": 5965
+    },
+    "2025": {
+      "dso": 94.9,
+      "dio": 249.7,
+      "dpo": 70.2,
+      "ccc": 274.4,
+      "op_cycle": 344.6,
+      "ap": 1750,
+      "receivables": 9570,
+      "inventory": 6225
+    }
+  },
+  "dupont": {
+    "2021": {
+      "net_margin": 26.0,
+      "asset_turnover": 0.43,
+      "equity_multiplier": 20.31,
+      "roe": 227.1
+    },
+    "2022": {
+      "net_margin": 24.9,
+      "asset_turnover": 0.404,
+      "equity_multiplier": 18.03,
+      "roe": 181.4
+    },
+    "2023": {
+      "net_margin": 23.8,
+      "asset_turnover": 0.29,
+      "equity_multiplier": 13.03,
+      "roe": 90.1
+    },
+    "2024": {
+      "net_margin": 12.2,
+      "asset_turnover": 0.364,
+      "equity_multiplier": 15.63,
+      "roe": 69.6
+    },
+    "2025": {
+      "net_margin": 21.0,
+      "asset_turnover": 0.406,
+      "equity_multiplier": 10.46,
+      "roe": 89.2
+    }
+  },
+  "debt_maturities": [
+    {
+      "year": 2026,
+      "amount": 4599,
+      "note": "Current portion of LT debt (Dec'25 balance)"
+    },
+    {
+      "year": 2027,
+      "amount": 1750,
+      "note": "Term loan, misc. notes"
+    },
+    {
+      "year": 2028,
+      "amount": 3750,
+      "note": "5.150% Senior Notes (Horizon-financing tranche)"
+    },
+    {
+      "year": 2029,
+      "amount": 1500,
+      "note": "Senior Notes"
+    },
+    {
+      "year": 2030,
+      "amount": 2750,
+      "note": "5.250% Senior Notes (Horizon)"
+    },
+    {
+      "year": 2031,
+      "amount": 2000,
+      "note": "incl. $1,000M 4.20% Notes (Feb'26 issue)"
+    },
+    {
+      "year": 2033,
+      "amount": 4250,
+      "note": "5.250% Senior Notes (Horizon)"
+    },
+    {
+      "year": 2034,
+      "amount": 1750,
+      "note": "Senior Notes"
+    },
+    {
+      "year": 2036,
+      "amount": 1750,
+      "note": "4.850% Senior Notes (Feb'26 issue)"
+    },
+    {
+      "year": 2043,
+      "amount": 2750,
+      "note": "5.600% Senior Notes (Horizon)"
+    },
+    {
+      "year": 2046,
+      "amount": 500,
+      "note": "5.500% Senior Notes (Feb'26 issue)"
+    },
+    {
+      "year": 2048,
+      "amount": 1500,
+      "note": "Senior Notes"
+    },
+    {
+      "year": 2053,
+      "amount": 4250,
+      "note": "5.650% Senior Notes (Horizon)"
+    },
+    {
+      "year": 2056,
+      "amount": 750,
+      "note": "5.650% Senior Notes (Feb'26 issue)"
+    },
+    {
+      "year": 2063,
+      "amount": 2750,
+      "note": "5.750% Senior Notes (Horizon)"
+    }
+  ],
+  "wam": 11.6,
+  "market": {
+    "price": 338.27,
+    "shares_out": 539.71,
+    "market_cap": 185609,
+    "total_debt": 57323,
+    "cash": 12038,
+    "ev": 230894,
+    "ebitda_ttm": 17113,
+    "revenue_ttm": 37222,
+    "eps_ttm": 14.38,
+    "pe_ttm": 23.9,
+    "fwd_pe": 15.18,
+    "div_per_share": 10.08,
+    "div_yield": 2.93,
+    "beta": 0.42,
+    "yr_low": 267.83,
+    "yr_high": 391.29
+  },
+  "scenarios": {
+    "base": {
+      "label": "Base",
+      "color": "#051C2C",
+      "rev_growth": 6.0,
+      "gross_margin": 75.0,
+      "rnd_pct": 21.0,
+      "sga_pct": 19.0,
+      "capex": 2.0,
+      "tax_rate": 25.0,
+      "note": "Mgmt FY26 guide midpoint, modest organic growth, MariTide pending"
+    },
+    "bull": {
+      "label": "Bull",
+      "color": "#06A77D",
+      "rev_growth": 12.0,
+      "gross_margin": 76.0,
+      "rnd_pct": 21.0,
+      "sga_pct": 18.0,
+      "capex": 2.5,
+      "tax_rate": 22.0,
+      "note": "MariTide approval & launch, ex-US ramp, favourable tax outcome"
+    },
+    "bear": {
+      "label": "Bear",
+      "color": "#BE3144",
+      "rev_growth": 0.0,
+      "gross_margin": 73.0,
+      "rnd_pct": 20.0,
+      "sga_pct": 19.0,
+      "capex": 2.0,
+      "tax_rate": 28.0,
+      "note": "IRA+biosimilar bite materialises, TAVNEOS withdrawn, IRS adverse"
+    }
+  },
+  "scenario_base_fy25": {
+    "product": 35349,
+    "other": 1454,
+    "total": 36803,
+    "net": 7721,
+    "shares": 543,
+    "fcf": 8100,
+    "eps": 14.23
+  },
+  "cf_detail": {
+    "2021": {
+      "net_income": 6837,
+      "d_a": 2488,
+      "sbc": 575,
+      "def_tax": -125,
+      "other_nc": -80,
+      "d_rec": -420,
+      "d_inv": -380,
+      "d_ap": 120,
+      "d_other_wc": 246,
+      "ocf": 9261,
+      "capex": -880,
+      "fcf": 8381,
+      "acquisitions": -2100,
+      "mkt_securities": 140,
+      "debt_issued": 7980,
+      "debt_repaid": -7770,
+      "debt_net": 210,
+      "dividends": -4361,
+      "buybacks": -800,
+      "fcf_to_div": 52.0
+    },
+    "2022": {
+      "net_income": 6552,
+      "d_a": 2529,
+      "sbc": 595,
+      "def_tax": -1250,
+      "other_nc": 150,
+      "d_rec": -163,
+      "d_inv": -1015,
+      "d_ap": 138,
+      "d_other_wc": 2186,
+      "ocf": 9722,
+      "capex": -936,
+      "fcf": 8786,
+      "acquisitions": -3800,
+      "mkt_securities": -50,
+      "debt_issued": 2000,
+      "debt_repaid": -315,
+      "debt_net": 1685,
+      "dividends": -4214,
+      "buybacks": -91,
+      "fcf_to_div": 48.0
+    },
+    "2023": {
+      "net_income": 6717,
+      "d_a": 3200,
+      "sbc": 620,
+      "def_tax": -1950,
+      "other_nc": 1280,
+      "d_rec": -1059,
+      "d_inv": -1003,
+      "d_ap": 417,
+      "d_other_wc": 249,
+      "ocf": 8471,
+      "capex": -1233,
+      "fcf": 7238,
+      "acquisitions": -27800,
+      "mkt_securities": 60,
+      "debt_issued": 24080,
+      "debt_repaid": -85,
+      "debt_net": 23995,
+      "dividends": -4448,
+      "buybacks": 0,
+      "fcf_to_div": 61.5
+    },
+    "2024": {
+      "net_income": 4090,
+      "d_a": 4820,
+      "sbc": 650,
+      "def_tax": -1800,
+      "other_nc": 500,
+      "d_rec": 0,
+      "d_inv": 212,
+      "d_ap": -70,
+      "d_other_wc": 3117,
+      "ocf": 11519,
+      "capex": -1119,
+      "fcf": 10400,
+      "acquisitions": 0,
+      "mkt_securities": 40,
+      "debt_issued": 0,
+      "debt_repaid": -4500,
+      "debt_net": -4500,
+      "dividends": -4630,
+      "buybacks": 0,
+      "fcf_to_div": 44.5
+    },
+    "2025": {
+      "net_income": 7721,
+      "d_a": 4500,
+      "sbc": 680,
+      "def_tax": -500,
+      "other_nc": 200,
+      "d_rec": -1522,
+      "d_inv": -260,
+      "d_ap": 100,
+      "d_other_wc": -819,
+      "ocf": 10100,
+      "capex": -2000,
+      "fcf": 8100,
+      "acquisitions": 0,
+      "mkt_securities": -30,
+      "debt_issued": 0,
+      "debt_repaid": -6000,
+      "debt_net": -6000,
+      "dividends": -5160,
+      "buybacks": 0,
+      "fcf_to_div": 63.7
+    }
+  },
+  "cf_detail_q": {
+    "2026Q1": {
+      "net_income": 1819,
+      "d_a": 1125,
+      "sbc": 170,
+      "def_tax": -100,
+      "other_nc": 50,
+      "d_rec": 200,
+      "d_inv": 50,
+      "d_ap": 40,
+      "d_other_wc": -1165,
+      "ocf": 2189,
+      "capex": -712,
+      "fcf": 1477,
+      "acquisitions": 0,
+      "mkt_securities": 0,
+      "debt_issued": 4000,
+      "debt_repaid": -800,
+      "debt_net": 3200,
+      "dividends": -1358,
+      "buybacks": 0,
+      "fcf_to_div": 91.9
+    },
+    "2025Q1": {
+      "net_income": 1730,
+      "d_a": 1200,
+      "sbc": 160,
+      "def_tax": -120,
+      "other_nc": -1500,
+      "d_rec": -300,
+      "d_inv": -150,
+      "d_ap": 30,
+      "d_other_wc": 341,
+      "ocf": 1391,
+      "capex": -411,
+      "fcf": 980,
+      "acquisitions": 0,
+      "mkt_securities": 0,
+      "debt_issued": 0,
+      "debt_repaid": 0,
+      "debt_net": 0,
+      "dividends": -1279,
+      "buybacks": 0,
+      "fcf_to_div": 130.5
+    }
+  },
+  "peers": [
+    {
+      "sym": "AMGN",
+      "name": "Amgen (this co.)",
+      "dso": 94.9,
+      "dio": 249.7,
+      "dpo": 70.2,
+      "ccc": 274.4,
+      "rev": 33.4,
+      "src": "reported",
+      "highlight": true,
+      "z": {
+        "dso": 1.28,
+        "dio": 1.1,
+        "dpo": -0.13
+      }
+    },
+    {
+      "sym": "PFE",
+      "name": "Pfizer",
+      "dso": 66.0,
+      "dio": 222.0,
+      "dpo": 115.0,
+      "ccc": 173.0,
+      "rev": 63.6,
+      "src": "reported",
+      "z": {
+        "dso": -1.11,
+        "dio": 0.54,
+        "dpo": 1.75
+      }
+    },
+    {
+      "sym": "MRK",
+      "name": "Merck",
+      "dso": 75.0,
+      "dio": 200.0,
+      "dpo": 100.0,
+      "ccc": 175.0,
+      "rev": 64.2,
+      "src": "modeled",
+      "z": {
+        "dso": -0.36,
+        "dio": 0.1,
+        "dpo": 1.12
+      }
+    },
+    {
+      "sym": "ABBV",
+      "name": "AbbVie",
+      "dso": 75.0,
+      "dio": 140.0,
+      "dpo": 65.0,
+      "ccc": 150.0,
+      "rev": 56.3,
+      "src": "modeled",
+      "z": {
+        "dso": -0.36,
+        "dio": -1.11,
+        "dpo": -0.35
+      }
+    },
+    {
+      "sym": "LLY",
+      "name": "Eli Lilly",
+      "dso": 92.0,
+      "dio": 293.0,
+      "dpo": 95.0,
+      "ccc": 290.0,
+      "rev": 45.0,
+      "src": "reported",
+      "z": {
+        "dso": 1.04,
+        "dio": 1.98,
+        "dpo": 0.91
+      }
+    },
+    {
+      "sym": "BMY",
+      "name": "Bristol-Myers",
+      "dso": 72.0,
+      "dio": 130.0,
+      "dpo": 70.0,
+      "ccc": 132.0,
+      "rev": 48.3,
+      "src": "modeled",
+      "z": {
+        "dso": -0.61,
+        "dio": -1.31,
+        "dpo": -0.14
+      }
+    },
+    {
+      "sym": "GILD",
+      "name": "Gilead",
+      "dso": 85.0,
+      "dio": 165.0,
+      "dpo": 60.0,
+      "ccc": 190.0,
+      "rev": 28.8,
+      "src": "modeled",
+      "z": {
+        "dso": 0.46,
+        "dio": -0.6,
+        "dpo": -0.56
+      }
+    },
+    {
+      "sym": "REGN",
+      "name": "Regeneron",
+      "dso": 95.0,
+      "dio": 180.0,
+      "dpo": 40.0,
+      "ccc": 235.0,
+      "rev": 14.2,
+      "src": "modeled",
+      "z": {
+        "dso": 1.29,
+        "dio": -0.3,
+        "dpo": -1.4
+      }
+    },
+    {
+      "sym": "VRTX",
+      "name": "Vertex",
+      "dso": 60.0,
+      "dio": 175.0,
+      "dpo": 45.0,
+      "ccc": 190.0,
+      "rev": 11.0,
+      "src": "modeled",
+      "z": {
+        "dso": -1.6,
+        "dio": -0.4,
+        "dpo": -1.19
+      }
+    }
+  ],
+  "peers_median": {
+    "dso": 75.0,
+    "dio": 177.5,
+    "dpo": 67.5,
+    "ccc": 182.5
+  },
+  "amgen_ranks": {
+    "dso": 8,
+    "dio": 8,
+    "dpo": 4,
+    "ccc": 8
+  },
+  "peer_count": 9,
+  "wc_sigma": {
+    "dso": {
+      "mean": 79.43,
+      "std": 12.12,
+      "min": 60.0,
+      "max": 95.0,
+      "bands": {
+        "-3": 43.1,
+        "-2": 55.2,
+        "-1": 67.3,
+        "0": 79.4,
+        "1": 91.6,
+        "2": 103.7,
+        "3": 115.8
+      }
+    },
+    "dio": {
+      "mean": 194.97,
+      "std": 49.58,
+      "min": 130.0,
+      "max": 293.0,
+      "bands": {
+        "-3": 46.2,
+        "-2": 95.8,
+        "-1": 145.4,
+        "0": 195.0,
+        "1": 244.5,
+        "2": 294.1,
+        "3": 343.7
+      }
+    },
+    "dpo": {
+      "mean": 73.36,
+      "std": 23.8,
+      "min": 40.0,
+      "max": 115.0,
+      "bands": {
+        "-3": 2.0,
+        "-2": 25.8,
+        "-1": 49.6,
+        "0": 73.4,
+        "1": 97.2,
+        "2": 121.0,
+        "3": 144.8
+      }
+    }
+  },
+  "amgen_z": {
+    "dso": 1.28,
+    "dio": 1.1,
+    "dpo": -0.13
+  },
+  "amgen_rev_per_day": 100.8,
+  "amgen_wc": {
+    "dso": 94.9,
+    "dio": 249.7,
+    "dpo": 70.2,
+    "ccc": 274.4
+  },
+  "peer_stats": {
+    "dso": {
+      "mean": 79.4,
+      "sd": 12.1,
+      "p1u": 91.6,
+      "p1d": 67.3,
+      "p2u": 103.7,
+      "p2d": 55.2,
+      "p3u": 115.8,
+      "p3d": 43.1
+    },
+    "dio": {
+      "mean": 195.0,
+      "sd": 49.6,
+      "p1u": 244.5,
+      "p1d": 145.4,
+      "p2u": 294.1,
+      "p2d": 95.8,
+      "p3u": 343.7,
+      "p3d": 46.2
+    },
+    "dpo": {
+      "mean": 73.4,
+      "sd": 23.8,
+      "p1u": 97.2,
+      "p1d": 49.6,
+      "p2u": 121.0,
+      "p2d": 25.8,
+      "p3u": 144.8,
+      "p3d": 2.0
+    }
+  },
+  "amgen_wc_base": {
+    "revenue": 36803,
+    "cogs": 9100,
+    "ar": 9568.8,
+    "inv": 6225.4,
+    "ap": 1750.2,
+    "net_wc": 14044.0
+  },
+  "scenarios_woca": [
+    {
+      "label": "Current (FY25 Amgen)",
+      "dso": 94.9,
+      "dio": 249.7,
+      "dpo": 70.2,
+      "color": "#BE3144",
+      "ccc": 274.4,
+      "wc": 14044.0,
+      "wc_saved": 0.0
+    },
+    {
+      "label": "Match peer median",
+      "dso": 75.0,
+      "dio": 177.5,
+      "dpo": 67.5,
+      "color": "#FFC845",
+      "ccc": 185.0,
+      "wc": 10304.7,
+      "wc_saved": 3739.3
+    },
+    {
+      "label": "Best-in-class (DSO/DIO floor, DPO ceiling)",
+      "dso": 60.0,
+      "dio": 130.0,
+      "dpo": 115.0,
+      "color": "#06A77D",
+      "ccc": 75.0,
+      "wc": 6423.8,
+      "wc_saved": 7620.2
+    }
+  ]
+}
