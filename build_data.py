@@ -751,6 +751,91 @@ data["risk_summary"] = {
     "peer_median_ccc": 183,
 }
 
+# ---- Inventory Management analytics ----
+# DIO = inventory / COGS * 365. Inventory carrying cost assumed ~22%/yr
+# (capital cost ~8% WACC + storage/handling, cold-chain, insurance, obsolescence/write-off,
+#  shrinkage — pharma cold-chain biologics sit at the high end of the 18–25% range).
+_CARRY_RATE = 0.22
+_WACC = 0.08
+inv_years = []
+for y in years:
+    inv = data["bs"][y]["inventory"]
+    cogs = data["pl"][y]["cogs"]
+    dio = round(inv / cogs * 365, 1)
+    inv_years.append({
+        "year": y,
+        "inventory": inv,
+        "cogs": cogs,
+        "dio": dio,
+        "inv_to_cogs": round(inv / cogs, 3),
+        "carry_cost": round(inv * _CARRY_RATE, 0),          # annual $ to hold this inventory
+        "capital_tied": inv,                                 # cash locked in inventory
+        "d_inv_cf": data["cf_detail"][y].get("d_inv", 0) if data.get("cf_detail") else 0,
+    })
+
+fy25_inv = data["bs"][2025]["inventory"]
+fy25_cogs = data["pl"][2025]["cogs"]
+fy25_dio = round(fy25_inv / fy25_cogs * 365, 1)
+inv_per_day = round(fy25_cogs / 365, 1)   # $ of inventory per DIO day
+
+# Scenario presets: each is a DIO delta vs the FY25 base.
+# inventory_released = inv_per_day * (-delta_dio); positive = cash freed.
+def _inv_scenario(label, delta_dio, note):
+    new_dio = round(fy25_dio + delta_dio, 1)
+    new_inv = round(inv_per_day * new_dio, 0)
+    released = round(fy25_inv - new_inv, 0)             # +ve = cash freed
+    carry_delta = round((new_inv - fy25_inv) * _CARRY_RATE, 0)  # +ve = extra annual carry cost
+    new_ccc = round(274.4 + delta_dio, 1)
+    return {
+        "label": label, "delta_dio": delta_dio, "new_dio": new_dio,
+        "new_inventory": new_inv, "cash_released": released,
+        "carry_cost_delta": carry_delta, "new_ccc": new_ccc, "note": note,
+    }
+
+data["inventory"] = {
+    "years": inv_years,
+    "fy25_inventory": fy25_inv,
+    "fy25_cogs": fy25_cogs,
+    "fy25_dio": fy25_dio,
+    "inv_per_day": inv_per_day,
+    "carry_rate": _CARRY_RATE,
+    "wacc": _WACC,
+    "fy25_carry_cost": round(fy25_inv * _CARRY_RATE, 0),
+    "peer_median_dio": 110.0,   # large-cap pharma median DIO (ex long-cycle outliers)
+    "scenarios": [
+        _inv_scenario("Aggressive lean (−60d)", -60,
+            "Demand-driven replenishment, dual-sourcing, SKU rationalisation and consignment "
+            "stock pull DIO toward best-in-class. Frees the most cash but raises stock-out risk "
+            "if a supply disruption hits the leaner buffer."),
+        _inv_scenario("Moderate optimise (−30d)", -30,
+            "JIT for high-velocity inputs plus seasonal safety-stock modelling. Balanced: meaningful "
+            "cash release while keeping resilience against Puerto Rico / single-source shocks."),
+        _inv_scenario("Hold (base, 0d)", 0,
+            "Status quo. DIO stays at FY25 levels (~250d) — deep buffer protects against disruption "
+            "but locks up the most working capital and carries the highest holding cost."),
+        _inv_scenario("Build buffer (+30d)", 30,
+            "Pre-emptive safety-stock build ahead of LoE wind-downs, hurricane season, or geopolitical "
+            "CMO risk. Protects revenue continuity but consumes cash and lifts carrying cost & "
+            "obsolescence exposure."),
+    ],
+    "drivers": [
+        ["Manufacturing lead time", "Biologics need 6–9 months from cell culture to release; long cycles force deep in-process and finished-goods stock."],
+        ["Quality testing & release", "Sterility, potency and stability testing adds weeks; quarantined lots sit as inventory until released."],
+        ["Single-source & geographic concentration", "75% commercial mfg in Puerto Rico and many single-source CMOs force safety-stock buffers against disruption."],
+        ["Cold-chain & shelf life", "Temperature-controlled biologics carry high storage cost and obsolescence/write-off risk near expiry."],
+        ["Horizon / rare-disease mix", "Low-volume rare-disease SKUs (TEPEZZA, KRYSTEXXA, UPLIZNA) need disproportionate safety stock."],
+        ["LoE / biosimilar transitions", "Pre-LoE builds then post-LoE wind-downs whipsaw inventory and raise markdown risk."],
+    ],
+    "levers": [
+        ["Demand-driven replenishment (DDR)", "Replace static safety stock with signal-based replenishment", "−20 to −30 DIO d", "~$500–750M freed"],
+        ["Dual-sourcing critical CMOs", "Cut single-source buffers (TEPEZZA, KRYSTEXXA)", "−10 to −15 DIO d", "Lower buffer premium"],
+        ["Consignment / VMI inventory", "Vendor-managed and pay-on-use stock with top CMOs", "−10 DIO d", "Shifts cost to supplier"],
+        ["SKU rationalisation", "Trim long-tail / slow-moving SKUs and pack variants", "−5 to −10 DIO d", "Less obsolescence"],
+        ["Seasonal safety-stock model", "Dynamic buffer: lean off-season, build pre-hurricane", "−15 to −25 DIO avg", "$200–300M freed"],
+        ["Pre-LoE run-down", "Systematic wind-down 6–9 mo ahead of patent loss", "Avoids 30–50d spike", "Avoids markdowns"],
+    ],
+}
+
 with open("data.json", "w") as f:
     json.dump(data, f, indent=2)
 print("years:", years)

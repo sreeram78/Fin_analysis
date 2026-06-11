@@ -432,6 +432,7 @@ footer .src{font-family:'IBM Plex Mono',monospace;font-size:11px;line-height:1.7
     <button data-v="trends">5-Yr Trends</button>
     <button data-v="kpis">KPI Library</button>
     <button data-v="workcap">Working Capital</button>
+    <button data-v="inventory">Inventory Mgmt</button>
     <button data-v="anomalies">Anomalies</button>
     <button data-v="risks">Risk Analysis</button>
     <button data-v="products">Product Drill-down</button>
@@ -507,6 +508,42 @@ footer .src{font-family:'IBM Plex Mono',monospace;font-size:11px;line-height:1.7
           <div class="scen-summary" id="wocaSummary"></div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- ============ ANOMALIES ============ -->
+  <section class="view" id="inventory">
+    <h2 class="sec"><span class="dot"></span>Inventory management &amp; financial impact</h2>
+    <p class="sec-note">Inventory is the largest single driver of Amgen's cash-conversion cycle — DIO sits near 250 days, roughly double the large-cap pharma median. This view shows how inventory levels move the financials (cash, FCF, CCC, carrying cost, margin risk), what drives the deep buffer, and how different inventory strategies trade cash release against supply resilience. <i>Carrying cost assumed ~22%/yr (8% capital + cold-chain storage, insurance, obsolescence/write-off); inventory days = inventory ÷ COGS × 365.</i></p>
+    <div class="kpi-grid" id="invKpis"></div>
+
+    <div class="chart-grid" style="margin-top:18px">
+      <div class="chart-card"><h3>Inventory &amp; DIO trend (FY21–FY25)</h3><div class="cn">Inventory in $M (bars) against days-inventory-outstanding (line). DIO peaked at 312d in FY22, fell to 232d in FY24 on Horizon integration, drifted back to 250d in FY25.</div><div class="chart-box"><canvas id="cInvTrend"></canvas></div></div>
+      <div class="chart-card"><h3>Inventory cash-flow impact (FY21–FY25)</h3><div class="cn">Change in inventory on the cash-flow statement. Negative bars = inventory build consuming cash; positive = release generating cash. FY22 build drained ~$1.0B; FY24 release added ~$0.2B.</div><div class="chart-box"><canvas id="cInvCF"></canvas></div></div>
+    </div>
+
+    <div class="chart-card" style="margin-top:18px"><h3>How inventory flows through the financials</h3><div class="cn">Every incremental dollar of inventory is a dollar of cash off the balance sheet plus ~22¢/yr of carrying cost — and a markdown/write-off risk if it ages past shelf life. Releasing inventory reverses all three.</div><div id="invFlow" style="margin-top:8px"></div></div>
+
+    <h3 style="font-family:'Source Serif 4',serif;font-size:18px;margin-top:30px;margin-bottom:6px">Inventory scenario model — trade cash against resilience</h3>
+    <p class="sec-note">Drag DIO to a target and watch the cash released, carrying-cost change, and new CCC. FY25 base: inventory $6,225M · COGS $9,100M · DIO 249.7d · ~$24.9M of inventory per DIO day.</p>
+    <div class="scen-presets" id="invPresets"></div>
+    <div class="scen-grid">
+      <div class="scen-inputs" id="invInputs"></div>
+      <div class="scen-output">
+        <div class="chart-card"><h3>Inventory: current → target</h3><div class="cn">Bars compare current vs target inventory $ and the cash released.</div><div class="chart-box"><canvas id="cInvScen"></canvas></div></div>
+        <div class="scen-summary" id="invSummary"></div>
+      </div>
+    </div>
+
+    <div style="margin-top:30px">
+      <h3 style="font-family:'Source Serif 4',serif;font-size:18px;margin-bottom:6px">Why inventory runs deep — structural drivers</h3>
+      <div id="invDrivers" style="margin-top:8px"></div>
+    </div>
+
+    <div style="margin-top:30px">
+      <h3 style="font-family:'Source Serif 4',serif;font-size:18px;margin-bottom:6px">Mitigation &amp; improvement levers</h3>
+      <p class="sec-note">Operational levers to lower DIO without exposing supply to disruption. Executed together, the roadmap targets DIO 250d → 220d (−30d ≈ $750M freed) and beyond toward 190d in the aggressive case.</p>
+      <div id="invLevers" style="margin-top:8px"></div>
     </div>
   </section>
 
@@ -677,6 +714,7 @@ $('#tabs').addEventListener('click',e=>{
   if(b.dataset.v==='trends')drawTrends();
   if(b.dataset.v==='products')drawProducts();
   if(b.dataset.v==='workcap')drawWorkcap();
+  if(b.dataset.v==='inventory')drawInventory();
   if(b.dataset.v==='valuation')drawValuation();
   if(b.dataset.v==='scenarios')drawScenarios();
   if(b.dataset.v==='risks')drawRisks();
@@ -2059,7 +2097,18 @@ function generateAnswer(q){
   if(q_lower.match(/\b(margin|gross|operating|net margin|profitability)\b/i)){
     const fy25=D.pl[2025];return `FY25 margins: Gross ${D.kpis[2025].gross_margin}%, Op ${D.kpis[2025].op_margin}%, Net ${D.kpis[2025].net_margin}%. R&D intensity: ${D.kpis[2025].rnd_intensity}% of sales. ${chatState.persona==='director'?'Margin profile stable; Op margin lifted by Horizon integration and scale.':''}`;
   }
-  if(q_lower.match(/\b(working capital|ccc|cash conversion|dso|dio|dpo)\b/i)){
+  if(q_lower.match(/\b(inventory|dio|days inventory|carrying cost|stock|safety stock|obsolescence|write.?off)\b/i)){
+    const INV=DATA.inventory;
+    let base=`FY25 inventory: <b>${fmtB(INV.fy25_inventory)}</b> at <b>${INV.fy25_dio}d</b> DIO — about double the large-cap pharma median (~${INV.peer_median_dio}d) and the biggest driver of the 274-day CCC. Annual carrying cost ~<b>${fmtB(INV.fy25_carry_cost)}</b> (≈${(INV.carry_rate*100).toFixed(0)}% of value: capital + cold-chain + obsolescence). Each DIO day ≈ ${fmtB(INV.inv_per_day)} of inventory; trimming 30 days frees ~${fmtB(754)} of cash.`;
+    let lens='';
+    if(chatState.persona==='cfo')      lens=` <br><br><b>CFO lens:</b> Releasing inventory is one-time cash for de-levering/buybacks; a −30d program (~$750M) plus −$166M/yr carrying cost supports the path to <2.0× D/EBITDA.`;
+    else if(chatState.persona==='treasurer') lens=` <br><br><b>Treasurer lens:</b> Inventory is the largest locked-up cash pool. Stage releases against the Puerto Rico / single-source disruption risk — don't go leaner than dual-sourcing supports.`;
+    else if(chatState.persona==='dirbiz')    lens=` <br><br><b>Commercial lens:</b> Watch rare-disease (TEPEZZA, KRYSTEXXA, UPLIZNA) safety stock and pre-LoE builds on Prolia/XGEVA — those carry the highest obsolescence/markdown risk.`;
+    else if(chatState.persona==='analyst')   lens=` <br><br><b>Analyst lens:</b> DIO at ~250d is the key earnings-quality flag — a successful run-down is ~$0.75–1.5B one-time FCF, not recurring. Model it as a working-capital release, not margin.`;
+    else if(chatState.persona==='strategy')  lens=` <br><br><b>Strategy lens:</b> Inventory release plus dual-sourcing de-risks the supply base and frees capital for rare-disease/oncology tuck-ins. Manufacturing diversification (NC/Ohio) lets you run leaner safely.`;
+    return base+lens+` <br><br><i>See the "Inventory Mgmt" tab for the scenario model (DIO −60d to +30d), drivers, and mitigation levers.</i>`;
+  }
+  if(q_lower.match(/\b(working capital|ccc|cash conversion|dso|dpo)\b/i)){
     const wc=D.wc[2025];return `FY25 CCC: <b>${wc.ccc.toFixed(0)}d</b>. DSO ${wc.dso.toFixed(0)}d, DIO ${wc.dio.toFixed(0)}d, DPO ${wc.dpo.toFixed(0)}d. ${chatState.persona==='treasurer'?'CCC is 50% above peer median (183d) — inventory-driven.':''}`;
   }
   if(q_lower.match(/\b(valuation|p.?e|ev.?ebitda|price)\b/i)){
@@ -2323,6 +2372,160 @@ window.RISK_DATA = {
     "potential_cash_impact_annual": "$1-5B (excluding IRS contingency)"
   }
 };
+
+/* ---------- INVENTORY MANAGEMENT ---------- */
+let inventoryDrawn=false;
+let invState={dio: DATA.inventory.fy25_dio};
+let invPreset='hold';
+function drawInventory(){
+  if(inventoryDrawn)return;inventoryDrawn=true;
+  const INV=DATA.inventory;
+  const grid={grid:{color:PALETTE.grid},border:{display:false}};
+  const sevColor=d=>d>=300?PALETTE.rust:d>=240?PALETTE.gold:PALETTE.green;
+
+  // ---- KPI tiles ----
+  const cards=[
+    [`FY25 Inventory`, fmtB(INV.fy25_inventory), `${INV.fy25_dio} days outstanding`, `~${fmtB(INV.inv_per_day)} per DIO day`, 'warn'],
+    [`Days Inventory (DIO)`, `${INV.fy25_dio}d`, `vs. peer median ~${INV.peer_median_dio}d`, `~${(INV.fy25_dio-INV.peer_median_dio).toFixed(0)}d above peers`, 'warn'],
+    [`Annual Carrying Cost`, fmtB(INV.fy25_carry_cost), `@ ${(INV.carry_rate*100).toFixed(0)}% of inventory value`, `capital + cold-chain + obsolescence`, 'warn'],
+    [`−30d DIO Opportunity`, `~${fmtB(754)}`, `Cash freed if DIO 250→220d`, `−$166M/yr carrying cost`, 'good'],
+  ];
+  const g=$('#invKpis');g.innerHTML='';
+  cards.forEach(([k,v,d1,d2,cls])=>{
+    g.innerHTML+=`<div class="kpi ${cls}"><div class="k">${k}</div><div class="v">${v}</div><div class="d">${d1}</div><div class="d" style="font-size:11px;color:var(--muted-soft);margin-top:2px">${d2}</div></div>`;
+  });
+
+  // ---- Inventory & DIO trend ----
+  const yrs=INV.years.map(r=>r.year);
+  new Chart($('#cInvTrend'),{data:{labels:yrs,datasets:[
+    {type:'bar',label:'Inventory ($M)',data:INV.years.map(r=>r.inventory),backgroundColor:PALETTE.teal,borderRadius:3,order:2,yAxisID:'y'},
+    {type:'line',label:'DIO (days)',data:INV.years.map(r=>r.dio),borderColor:PALETTE.rust,backgroundColor:PALETTE.rust,borderWidth:3,pointRadius:4,tension:.3,order:1,yAxisID:'y1'}
+  ]},options:{maintainAspectRatio:false,plugins:{legend:{position:'top'},
+    tooltip:{callbacks:{label:c=>c.dataset.label+': '+(c.dataset.yAxisID==='y1'?c.parsed.y+'d':fmtB(c.parsed.y))}}},
+    scales:{y:{...grid,position:'left',ticks:{callback:v=>fmtB(v)}},
+      y1:{...grid,position:'right',grid:{drawOnChartArea:false},ticks:{callback:v=>v+'d'}},x:grid}}});
+
+  // ---- Inventory cash-flow impact ----
+  new Chart($('#cInvCF'),{type:'bar',data:{labels:yrs,datasets:[
+    {label:'Δ Inventory on cash flow ($M)',data:INV.years.map(r=>r.d_inv_cf),
+     backgroundColor:INV.years.map(r=>r.d_inv_cf>=0?PALETTE.green:PALETTE.rust),borderRadius:3}
+  ]},options:{maintainAspectRatio:false,plugins:{legend:{display:false},
+    tooltip:{callbacks:{label:c=>(c.parsed.y>=0?'Released ':'Consumed ')+fmtB(Math.abs(c.parsed.y))+' of cash'}}},
+    scales:{y:{...grid,ticks:{callback:v=>fmtB(v)}},x:grid}}});
+
+  // ---- Inventory flow-through table ----
+  const flow=[
+    ['Balance sheet', 'Inventory is a current asset — every $1 held is $1 of cash not available for debt paydown, buybacks or M&A.', 'Cash tied up'],
+    ['Cash flow', 'An inventory build is a use of cash in operating cash flow; a release is a source. Directly moves OCF and therefore FCF.', 'FCF ±'],
+    ['Working capital', 'Inventory days (DIO) are the largest component of the 274-day CCC. Lowering DIO shortens the whole cycle 1-for-1.', 'CCC ±'],
+    ['Income statement', `Carrying cost (~${(INV.carry_rate*100).toFixed(0)}%/yr) plus obsolescence/write-offs on aged or post-LoE stock hit COGS and gross margin.`, 'Margin risk'],
+    ['Risk / resilience', 'Deep buffers protect against Puerto Rico, single-source CMO and geopolitical disruption — leaner stock raises stock-out risk.', 'Resilience trade-off'],
+  ];
+  $('#invFlow').innerHTML = `<table style="width:100%;border-collapse:collapse;font-size:12.5px">
+    <thead><tr style="border-bottom:2px solid var(--ink)">
+      <th style="text-align:left;padding:8px 10px;font-family:'IBM Plex Mono',monospace;font-size:9px;text-transform:uppercase;color:var(--muted)">Statement / area</th>
+      <th style="text-align:left;padding:8px 10px;font-family:'IBM Plex Mono',monospace;font-size:9px;text-transform:uppercase;color:var(--muted)">How inventory changes flow through</th>
+      <th style="text-align:right;padding:8px 10px;font-family:'IBM Plex Mono',monospace;font-size:9px;text-transform:uppercase;color:var(--muted)">Effect</th>
+    </tr></thead><tbody>
+    ${flow.map(([a,b,c])=>`<tr style="border-bottom:1px solid var(--line)">
+      <td style="padding:9px 10px;font-weight:600;color:var(--ink);white-space:nowrap">${a}</td>
+      <td style="padding:9px 10px;color:var(--ink);line-height:1.5">${b}</td>
+      <td style="padding:9px 10px;text-align:right;color:var(--muted);white-space:nowrap">${c}</td></tr>`).join('')}
+    </tbody></table>`;
+
+  // ---- Drivers ----
+  $('#invDrivers').innerHTML = INV.drivers.map(([t,d])=>`
+    <div style="display:flex;gap:12px;padding:11px 0;border-bottom:1px solid var(--line)">
+      <div style="flex:0 0 230px;font-weight:600;color:var(--ink);font-size:13px">${t}</div>
+      <div style="flex:1;color:var(--muted);font-size:12.5px;line-height:1.5">${d}</div></div>`).join('');
+
+  // ---- Levers ----
+  $('#invLevers').innerHTML = `<table style="width:100%;border-collapse:collapse;font-size:12.5px">
+    <thead><tr style="border-bottom:2px solid var(--ink)">
+      <th style="text-align:left;padding:8px 10px;font-family:'IBM Plex Mono',monospace;font-size:9px;text-transform:uppercase;color:var(--muted)">Lever</th>
+      <th style="text-align:left;padding:8px 10px;font-family:'IBM Plex Mono',monospace;font-size:9px;text-transform:uppercase;color:var(--muted)">Action</th>
+      <th style="text-align:left;padding:8px 10px;font-family:'IBM Plex Mono',monospace;font-size:9px;text-transform:uppercase;color:var(--muted)">DIO impact</th>
+      <th style="text-align:right;padding:8px 10px;font-family:'IBM Plex Mono',monospace;font-size:9px;text-transform:uppercase;color:var(--muted)">Cash effect</th>
+    </tr></thead><tbody>
+    ${INV.levers.map(([l,a,d,c])=>`<tr style="border-bottom:1px solid var(--line)">
+      <td style="padding:9px 10px;font-weight:600;color:var(--ink)">${l}</td>
+      <td style="padding:9px 10px;color:var(--muted);line-height:1.5">${a}</td>
+      <td style="padding:9px 10px;color:var(--green);white-space:nowrap">${d}</td>
+      <td style="padding:9px 10px;text-align:right;color:var(--ink);white-space:nowrap">${c}</td></tr>`).join('')}
+    </tbody></table>`;
+
+  // ---- Scenario presets + slider ----
+  const presets=INV.scenarios;
+  $('#invPresets').innerHTML = presets.map((s,i)=>
+    `<button data-i="${i}" class="${s.delta_dio===0?'active':''}">${s.label}</button>`).join('');
+  $('#invPresets').addEventListener('click',e=>{
+    const b=e.target.closest('button');if(!b)return;
+    const s=presets[+b.dataset.i];
+    invState.dio=s.new_dio;invPreset=s.label;
+    document.querySelectorAll('#invPresets button').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    renderInvInputs();renderInvOutput();
+  });
+  renderInvInputs();renderInvOutput();
+}
+
+function renderInvInputs(){
+  const INV=DATA.inventory;
+  const mn=Math.max(150,Math.round(INV.peer_median_dio+40)), mx=320;
+  let h='<h3>Inventory driver</h3>';
+  h+=`<div class="scen-input">
+    <label>DIO — days inventory outstanding (lower frees cash) <span class="v" id="ilv-dio">${invState.dio.toFixed(0)}d</span></label>
+    <input type="range" id="in-dio" min="${mn}" max="${mx}" step="1" value="${invState.dio}">
+    <div class="range-meta"><span>${mn}d (lean)</span><span>FY25 ${INV.fy25_dio}d</span><span>${mx}d (buffer)</span></div>
+  </div>`;
+  h+=`<div class="scen-note"><b>Base:</b> inventory ${fmtB(INV.fy25_inventory)} · COGS ${fmtB(INV.fy25_cogs)} · ~${fmtB(INV.inv_per_day)}/DIO day · carrying cost ${(INV.carry_rate*100).toFixed(0)}%/yr.</div>`;
+  $('#invInputs').innerHTML=h;
+  const inp=document.getElementById('in-dio');
+  inp.addEventListener('input',()=>{
+    invState.dio=parseFloat(inp.value);
+    document.getElementById('ilv-dio').textContent=invState.dio.toFixed(0)+'d';
+    document.querySelectorAll('#invPresets button').forEach(x=>x.classList.remove('active'));
+    invPreset='custom';
+    renderInvOutput();
+  });
+}
+
+function renderInvOutput(){
+  const INV=DATA.inventory, grid={grid:{color:PALETTE.grid},border:{display:false}};
+  const baseInv=INV.fy25_inventory, baseDio=INV.fy25_dio, perDay=INV.inv_per_day;
+  const newInv=Math.round(perDay*invState.dio);
+  const released=Math.round(baseInv-newInv);          // +ve = cash freed
+  const carryDelta=Math.round((newInv-baseInv)*INV.carry_rate);  // +ve = extra cost
+  const dDio=invState.dio-baseDio;
+  const newCcc=(274.4+dDio).toFixed(1);
+
+  if(window._cInvScen)window._cInvScen.destroy();
+  window._cInvScen=new Chart($('#cInvScen'),{type:'bar',data:{labels:['Current FY25','Target'],datasets:[
+    {label:'Inventory ($M)',data:[baseInv,newInv],backgroundColor:[PALETTE.muted,released>=0?PALETTE.green:PALETTE.rust],borderRadius:4}
+  ]},options:{maintainAspectRatio:false,plugins:{legend:{display:false},
+    tooltip:{callbacks:{label:c=>fmtB(c.parsed.y)+' inventory'}}},
+    scales:{y:{...grid,ticks:{callback:v=>fmtB(v)}},x:grid}}});
+
+  // Scenario explanation (matches the chosen preset if one is active)
+  const presetNote=(DATA.inventory.scenarios.find(s=>s.label===invPreset)||{}).note;
+  const dir = released>=0 ? 'freed' : 'consumed';
+  const dirColor = released>=0 ? 'var(--green)' : 'var(--rust)';
+  const carryDir = carryDelta<=0 ? 'saved' : 'added';
+  let interpretation;
+  if(dDio<=-45) interpretation='Aggressive lean: maximum cash release, but the thin buffer leaves little cushion if a Puerto Rico event or single-source CMO disruption hits. Pair with dual-sourcing before going this lean.';
+  else if(dDio<0) interpretation='Net cash release with resilience largely intact — the balanced zone. Demand-driven replenishment and seasonal safety-stock modelling get you here without material stock-out risk.';
+  else if(dDio===0) interpretation='Status quo. The deep buffer maximises supply resilience but locks up the most cash and carries the highest holding and obsolescence cost.';
+  else interpretation='Buffer build: consumes cash and raises carrying/obsolescence cost, but protects revenue continuity ahead of LoE wind-downs, hurricane season or geopolitical CMO risk.';
+
+  $('#invSummary').innerHTML = `
+    <div class="scen-kpis">
+      <div><span class="l">New DIO</span><span class="n">${invState.dio.toFixed(0)}d</span><span class="s">${dDio>=0?'+':''}${dDio.toFixed(0)}d vs FY25</span></div>
+      <div><span class="l">Cash ${dir}</span><span class="n" style="color:${dirColor}">${fmtB(Math.abs(released))}</span><span class="s">inventory ${released>=0?'released':'added'}</span></div>
+      <div><span class="l">Carrying cost</span><span class="n">${fmtB(Math.abs(carryDelta))}</span><span class="s">${carryDir}/yr @ ${(INV.carry_rate*100).toFixed(0)}%</span></div>
+      <div><span class="l">New CCC</span><span class="n">${newCcc}d</span><span class="s">from 274.4d</span></div>
+    </div>
+    <div class="scen-note" style="margin-top:12px"><b>Scenario:</b> ${interpretation}${presetNote?'<br><br><b>'+invPreset+':</b> '+presetNote:''}</div>`;
+}
 
 window.addEventListener('load',()=>{initChatbot();});
 document.addEventListener('keypress',e=>{if(e.key==='Enter'&&document.getElementById('chatInput')===document.activeElement)sendMessage();});
