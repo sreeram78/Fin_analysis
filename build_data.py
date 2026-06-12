@@ -834,6 +834,105 @@ data["inventory"] = {
         ["Seasonal safety-stock model", "Dynamic buffer: lean off-season, build pre-hurricane", "−15 to −25 DIO avg", "$200–300M freed"],
         ["Pre-LoE run-down", "Systematic wind-down 6–9 mo ahead of patent loss", "Avoids 30–50d spike", "Avoids markdowns"],
     ],
+    # In-depth, phased implementation roadmap to move DIO 250 -> 190 over 8 quarters.
+    "dio_roadmap": [
+        {
+            "phase": "Phase 1 — Diagnose & Stabilise", "horizon": "Q1–Q2 (0–6 months)",
+            "target_dio": 250, "exit_dio": 240, "owner": "VP Supply Chain + Finance FP&A",
+            "objective": "Build the inventory data foundation and stop the bleeding before optimising. You cannot manage what you cannot see at SKU/lot granularity.",
+            "steps": [
+                ["Establish SKU-level inventory visibility", "Stand up a single inventory data model across Amgen + Horizon ERPs. Tag every SKU/lot with value, age, shelf-life remaining, source site, and demand class (A/B/C). Without this, every later lever is guesswork.", "Foundational — enables all"],
+                ["Segment inventory (ABC × XYZ)", "Classify SKUs by value (ABC) and demand variability (XYZ). 'AX' = high-value/stable → run lean; 'CZ' = low-value/erratic → buffer or rationalise. Focus effort on the 20% of SKUs holding ~80% of value.", "Targets effort"],
+                ["Identify & quarantine dead/slow stock", "Flag stock >180 days of supply and within 12 months of expiry. Decide: sell-through, redeploy across geographies, or write-off. Stops aged stock compounding.", "−5 to −8 DIO d"],
+                ["Set DIO targets by segment", "Replace one blanket safety-stock policy with per-segment service-level targets (e.g. 99.5% for life-saving oncology, 97% for elective). Over-buffering uniformly is the single biggest source of excess.", "−2 to −4 DIO d"],
+            ],
+        },
+        {
+            "phase": "Phase 2 — Demand-Driven Replenishment", "horizon": "Q3–Q4 (6–12 months)",
+            "target_dio": 240, "exit_dio": 222, "owner": "VP Supply Chain + S&OP lead",
+            "objective": "Replace static, calendar-based safety stock with signal-based replenishment driven by real demand and statistically-sized buffers. This is the largest single lever (~$500–750M).",
+            "steps": [
+                ["Deploy statistical safety-stock sizing", "Size buffers from demand variability + lead-time variability + target service level (not a flat 'X months'). Mathematically right-sizes every buffer; typically releases 15–25% of safety stock.", "−12 to −18 DIO d"],
+                ["Implement S&OP / IBP cadence", "Monthly integrated business planning: commercial demand signal → supply plan → inventory plan, with one consensus forecast. Cuts the forecast-error buffer that bloats inventory.", "−4 to −6 DIO d"],
+                ["Improve forecast accuracy", "Add ML demand sensing on high-velocity products; track MAPE by SKU. Every 5pt accuracy gain lets you safely cut buffer ~3–5%.", "Enables buffer cut"],
+                ["Postponement / late differentiation", "Hold semi-finished (bulk drug substance) and finish/label to order where shelf-life allows. Pools variability upstream → less finished-goods safety stock per market.", "−5 to −8 DIO d"],
+            ],
+        },
+        {
+            "phase": "Phase 3 — Supply-Base & Network De-risking", "horizon": "Q5–Q6 (12–18 months)",
+            "target_dio": 222, "exit_dio": 205, "owner": "VP External Supply + Manufacturing",
+            "objective": "Cut the structural buffers that exist only because supply is concentrated and single-sourced. Lower disruption risk lets you safely hold less.",
+            "steps": [
+                ["Dual-source critical CMOs", "Qualify a second source for single-source Horizon products (TEPEZZA, KRYSTEXXA). Removes the 'disruption insurance' inventory currently carried against single points of failure.", "−10 to −15 DIO d"],
+                ["Consignment / VMI with top suppliers", "Move to vendor-managed or pay-on-use inventory for high-volume inputs. Stock sits on supplier's books until consumed — removes it from Amgen DIO.", "−8 to −10 DIO d"],
+                ["Regional distribution pooling", "Consolidate market-level safety stock into regional hubs (risk-pooling). One pooled buffer covers many markets with less total stock.", "−4 to −6 DIO d"],
+                ["Manufacturing diversification (Holly Springs/NC)", "Bring second-site capacity online to cut Puerto Rico concentration (75%→60–65%). Reduces the geographic-concentration safety stock premium.", "Lowers buffer need"],
+            ],
+        },
+        {
+            "phase": "Phase 4 — Sustain, Automate & Govern", "horizon": "Q7–Q8 (18–24 months)",
+            "target_dio": 205, "exit_dio": 190, "owner": "Chief Supply Chain Officer + CFO",
+            "objective": "Lock in the gains so DIO does not drift back. Automate replenishment, govern with hard KPIs, and bake inventory targets into the operating plan and incentives.",
+            "steps": [
+                ["Automate replenishment (control tower)", "Real-time inventory control tower with auto-replenishment within policy bands; exception-based management. Removes manual over-ordering and reaction lag.", "−5 to −8 DIO d"],
+                ["SKU rationalisation & portfolio discipline", "Cull long-tail SKUs/pack variants below margin or volume thresholds; gate new-SKU introductions on inventory impact. Fewer SKUs = less aggregate buffer + obsolescence.", "−5 to −10 DIO d"],
+                ["Pre-LoE inventory wind-down playbook", "Standard 6–9 month run-down ahead of every patent loss (Prolia/XGEVA pattern). Prevents the 30–50 day post-LoE inventory spike and markdown losses.", "Avoids 30–50d spikes"],
+                ["Embed DIO in AOP & incentives", "Make DIO/cash-conversion a board-level KPI in the annual operating plan with targets in supply-chain & commercial scorecards. Sustains behaviour after the program team disbands.", "Sustains all gains"],
+            ],
+        },
+    ],
+}
+
+# ---- Annual Operating Plan (AOP) — FY25 base for 3-yr interactive projection ----
+_pl25 = data["pl"][2025]; _bs25 = data["bs"][2025]; _cf25 = data["cf_detail"][2025]
+data["aop"] = {
+    "base_year": 2025,
+    "pl": {
+        "product": _pl25["product"], "other": _pl25["other"], "total": _pl25["total"],
+        "cogs": _pl25["cogs"], "rnd": _pl25["rnd"], "sga": _pl25["sga"],
+        "other_op": _pl25["other_op"], "op_income": _pl25["op_income"],
+        "int_exp": _pl25["int_exp"], "other_inc": _pl25["other_inc"],
+        "pretax": _pl25["pretax"], "tax": _pl25["tax"], "net": _pl25["net"],
+        "eps": _pl25["eps"], "shares": _pl25["shares"],
+    },
+    "bs": {
+        "cash": _bs25["cash"], "receivables": _bs25["receivables"], "inventory": _bs25["inventory"],
+        "cur_assets": _bs25["cur_assets"], "ppe": _bs25["ppe"], "goodwill": _bs25["goodwill"],
+        "intangibles": _bs25["intangibles"], "total_assets": _bs25["total_assets"],
+        "cur_liab": _bs25["cur_liab"], "lt_debt": _bs25["lt_debt"], "total_liab": _bs25["total_liab"],
+        "equity": _bs25["equity"], "total_debt": _bs25["total_debt"],
+    },
+    "cf": {
+        "net_income": _cf25["net_income"], "d_a": _cf25["d_a"], "sbc": _cf25["sbc"],
+        "d_rec": _cf25["d_rec"], "d_inv": _cf25["d_inv"], "d_ap": _cf25["d_ap"],
+        "d_other_wc": _cf25["d_other_wc"], "ocf": _cf25["ocf"], "capex": _cf25["capex"],
+        "fcf": _cf25["fcf"], "debt_repaid": _cf25["debt_repaid"], "dividends": _cf25["dividends"],
+    },
+    # default planning drivers (editable in UI)
+    "drivers": {
+        "rev_growth": 6.0,        # % revenue growth/yr
+        "gross_margin": 75.3,     # % gross margin (1 - cogs/product)
+        "rnd_pct": 20.6,          # R&D as % of product sales
+        "sga_pct": 19.0,          # SG&A as % of product sales
+        "tax_rate": 24.5,         # effective tax rate %
+        "capex_pct": 5.7,         # capex as % of total revenue
+        "dso": 94.9, "dio": 249.7, "dpo": 70.2,  # working-capital days
+        "dividend_growth": 6.0,   # % dividend/yr
+        "debt_paydown": 4000,     # $M debt repaid/yr
+    },
+    "driver_meta": [
+        ["rev_growth", "Revenue growth", "%", 0, 15, 0.5],
+        ["gross_margin", "Gross margin", "%", 65, 85, 0.5],
+        ["rnd_pct", "R&D (% of product sales)", "%", 12, 28, 0.5],
+        ["sga_pct", "SG&A (% of product sales)", "%", 12, 26, 0.5],
+        ["tax_rate", "Effective tax rate", "%", 12, 30, 0.5],
+        ["capex_pct", "Capex (% of revenue)", "%", 3, 10, 0.25],
+        ["dso", "DSO — receivable days", "d", 60, 120, 1],
+        ["dio", "DIO — inventory days", "d", 150, 320, 1],
+        ["dpo", "DPO — payable days", "d", 40, 110, 1],
+        ["dividend_growth", "Dividend growth", "%", 0, 12, 0.5],
+        ["debt_paydown", "Debt paydown / yr ($M)", "M", 0, 8000, 250],
+    ],
 }
 
 with open("data.json", "w") as f:

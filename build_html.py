@@ -287,6 +287,10 @@ footer .src{font-family:'IBM Plex Mono',monospace;font-size:11px;line-height:1.7
 .scen-presets button:hover{border-color:var(--ink-soft)}
 .scen-presets button.active{border-color:var(--ink);background:var(--ink);color:#fff}
 .scen-grid{display:grid;grid-template-columns:320px 1fr;gap:22px}
+.aop-stmt{font-family:'Inter',sans-serif;font-weight:500;font-size:12.5px;border:none;background:transparent;
+  color:var(--muted);padding:9px 16px;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;transition:.12s}
+.aop-stmt:hover{color:var(--ink)}
+.aop-stmt.active{color:var(--ink);font-weight:600;border-bottom-color:var(--gold)}
 @media(max-width:900px){.scen-grid{grid-template-columns:1fr}}
 .scen-inputs{background:var(--card);border:1px solid var(--line);border-radius:2px;
   padding:22px;box-shadow:var(--shadow);align-self:start}
@@ -438,6 +442,7 @@ footer .src{font-family:'IBM Plex Mono',monospace;font-size:11px;line-height:1.7
     <button data-v="products">Product Drill-down</button>
     <button data-v="valuation">Valuation</button>
     <button data-v="scenarios">Scenarios</button>
+    <button data-v="aop">Annual Operating Plan</button>
     <button data-v="stakeholders">Stakeholder Views</button>
   </nav>
 
@@ -544,6 +549,12 @@ footer .src{font-family:'IBM Plex Mono',monospace;font-size:11px;line-height:1.7
       <h3 style="font-family:'Source Serif 4',serif;font-size:18px;margin-bottom:6px">Mitigation &amp; improvement levers</h3>
       <p class="sec-note">Operational levers to lower DIO without exposing supply to disruption. Executed together, the roadmap targets DIO 250d → 220d (−30d ≈ $750M freed) and beyond toward 190d in the aggressive case.</p>
       <div id="invLevers" style="margin-top:8px"></div>
+    </div>
+
+    <div style="margin-top:32px;padding-top:24px;border-top:2px solid var(--ink)">
+      <h3 style="font-family:'Source Serif 4',serif;font-size:20px;margin-bottom:4px">DIO improvement roadmap — 250d → 190d over 8 quarters</h3>
+      <p class="sec-note">A phased, in-depth implementation plan. Each phase builds on the last: diagnose → demand-driven replenishment → de-risk the supply base → sustain &amp; govern. Targets DIO 250d → 190d, releasing ~$1.5B of cash while protecting supply resilience. Each step explains <i>why</i> it works and its DIO impact.</p>
+      <div id="dioRoadmap" style="margin-top:14px"></div>
     </div>
   </section>
 
@@ -672,6 +683,26 @@ footer .src{font-family:'IBM Plex Mono',monospace;font-size:11px;line-height:1.7
   </section>
 
   <!-- ============ STAKEHOLDERS ============ -->
+  <section class="view" id="aop">
+    <h2 class="sec"><span class="dot"></span>Annual Operating Plan — 3-year integrated forecast</h2>
+    <p class="sec-note">A fully linked three-statement model built off FY25 actuals. Adjust the planning drivers on the left — growth, margins, opex ratios, tax, capex, and working-capital days — and the P&amp;L, Balance Sheet and Free Cash Flow auto-project for FY26–FY28. Working-capital days (DSO/DIO/DPO) flow through to the cash-flow statement and balance sheet, so inventory and receivable decisions show up directly in cash. <i>Forecast is a driver-based model for planning, not guidance; FY25 is reported actuals.</i></p>
+    <div class="scen-presets" id="aopPresets"></div>
+    <div class="scen-grid" style="grid-template-columns:300px 1fr">
+      <div class="scen-inputs" id="aopInputs"></div>
+      <div class="scen-output">
+        <div class="kpi-grid" id="aopKpis" style="margin-bottom:16px"></div>
+        <div class="aop-tabs" id="aopStmtTabs" style="display:flex;gap:4px;margin-bottom:12px;border-bottom:2px solid var(--ink)">
+          <button class="aop-stmt active" data-s="pl">Income Statement</button>
+          <button class="aop-stmt" data-s="bs">Balance Sheet</button>
+          <button class="aop-stmt" data-s="cf">Free Cash Flow</button>
+        </div>
+        <div class="chart-card"><h3 id="aopChartTitle">Income statement projection</h3><div class="cn" id="aopChartNote">Revenue, operating income and net income, FY25 actual → FY28 plan.</div><div class="chart-box tall"><canvas id="cAop"></canvas></div></div>
+        <div id="aopTable" style="margin-top:16px"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ STAKEHOLDERS_END ============ -->
   <section class="view" id="stakeholders">
     <h2 class="sec"><span class="dot"></span>Insights by stakeholder</h2>
     <p class="sec-note">Same numbers, five lenses. Switch personas below. (All persona content is generated in Python — see <code>build_html.py</code>.)</p>
@@ -717,6 +748,7 @@ $('#tabs').addEventListener('click',e=>{
   if(b.dataset.v==='inventory')drawInventory();
   if(b.dataset.v==='valuation')drawValuation();
   if(b.dataset.v==='scenarios')drawScenarios();
+  if(b.dataset.v==='aop')drawAOP();
   if(b.dataset.v==='risks')drawRisks();
 });
 
@@ -2097,6 +2129,9 @@ function generateAnswer(q){
   if(q_lower.match(/\b(margin|gross|operating|net margin|profitability)\b/i)){
     const fy25=D.pl[2025];return `FY25 margins: Gross ${D.kpis[2025].gross_margin}%, Op ${D.kpis[2025].op_margin}%, Net ${D.kpis[2025].net_margin}%. R&D intensity: ${D.kpis[2025].rnd_intensity}% of sales. ${chatState.persona==='director'?'Margin profile stable; Op margin lifted by Horizon integration and scale.':''}`;
   }
+  if(q_lower.match(/\b(operating plan|aop|forecast|3.?year|three.?year|projection|plan|budget)\b/i)){
+    return `The <b>Annual Operating Plan</b> tab runs a fully linked 3-statement model off FY25 actuals. On the base plan (6% growth, 75.3% gross margin, $4B/yr debt paydown), FY28 lands at roughly: revenue <b>~$44B</b>, net income <b>~$10.2B</b>, FCF <b>~$12.0B</b>, with net debt falling from ~$45.5B to ~$28.5B. Adjust any driver — growth, margins, opex, tax, capex, or working-capital days (DSO/DIO/DPO) — and all three statements re-project live. The WC-optimised preset (DIO 190d, DSO 80d) frees cash into FCF and accelerates de-levering. ${chatState.persona==='cfo'?'Use it to test capital-allocation trade-offs: buyback vs paydown vs M&A.':''}${chatState.persona==='analyst'?'Driver-based, not guidance — sensitise growth and margin to bound your estimate range.':''}`;
+  }
   if(q_lower.match(/\b(inventory|dio|days inventory|carrying cost|stock|safety stock|obsolescence|write.?off)\b/i)){
     const INV=DATA.inventory;
     let base=`FY25 inventory: <b>${fmtB(INV.fy25_inventory)}</b> at <b>${INV.fy25_dio}d</b> DIO — about double the large-cap pharma median (~${INV.peer_median_dio}d) and the biggest driver of the 274-day CCC. Annual carrying cost ~<b>${fmtB(INV.fy25_carry_cost)}</b> (≈${(INV.carry_rate*100).toFixed(0)}% of value: capital + cold-chain + obsolescence). Each DIO day ≈ ${fmtB(INV.inv_per_day)} of inventory; trimming 30 days frees ~${fmtB(754)} of cash.`;
@@ -2454,6 +2489,39 @@ function drawInventory(){
       <td style="padding:9px 10px;text-align:right;color:var(--ink);white-space:nowrap">${c}</td></tr>`).join('')}
     </tbody></table>`;
 
+  // ---- DIO improvement roadmap (phased, in-depth) ----
+  const phaseColors=[PALETTE.rust,PALETTE.gold,PALETTE.teal,PALETTE.green];
+  $('#dioRoadmap').innerHTML = INV.dio_roadmap.map((ph,i)=>{
+    const col=phaseColors[i%4];
+    const drop=ph.target_dio-ph.exit_dio;
+    return `<div style="border:1px solid var(--line);border-left:4px solid ${col};border-radius:4px;margin-bottom:16px;overflow:hidden">
+      <div style="background:var(--soft);padding:13px 16px;display:flex;justify-content:space-between;align-items:flex-start;gap:14px;flex-wrap:wrap">
+        <div style="flex:1;min-width:240px">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;text-transform:uppercase;color:${col};font-weight:700;letter-spacing:.04em">${ph.horizon}</div>
+          <div style="font-family:'Source Serif 4',serif;font-size:16px;font-weight:600;color:var(--ink);margin-top:2px">${ph.phase}</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:3px"><b>Owner:</b> ${ph.owner}</div>
+        </div>
+        <div style="text-align:right;white-space:nowrap">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;text-transform:uppercase;color:var(--muted)">DIO this phase</div>
+          <div style="font-size:18px;font-weight:700;color:${col}">${ph.target_dio}d → ${ph.exit_dio}d</div>
+          <div style="font-size:11px;color:var(--green);font-weight:600">−${drop} days</div>
+        </div>
+      </div>
+      <div style="padding:12px 16px">
+        <div style="font-size:12.5px;color:var(--ink);line-height:1.55;margin-bottom:12px;font-style:italic">${ph.objective}</div>
+        ${ph.steps.map((s,j)=>`
+          <div style="display:flex;gap:12px;padding:10px 0;${j<ph.steps.length-1?'border-bottom:1px solid var(--line)':''}">
+            <div style="flex:0 0 24px;height:24px;border-radius:50%;background:${col};color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center">${j+1}</div>
+            <div style="flex:1">
+              <div style="font-weight:600;color:var(--ink);font-size:13px;margin-bottom:2px">${s[0]}</div>
+              <div style="color:var(--muted);font-size:12px;line-height:1.5">${s[1]}</div>
+            </div>
+            <div style="flex:0 0 130px;text-align:right;font-size:11px;color:${col};font-weight:600;white-space:nowrap">${s[2]}</div>
+          </div>`).join('')}
+      </div>
+    </div>`;
+  }).join('');
+
   // ---- Scenario presets + slider ----
   const presets=INV.scenarios;
   $('#invPresets').innerHTML = presets.map((s,i)=>
@@ -2525,6 +2593,180 @@ function renderInvOutput(){
       <div><span class="l">New CCC</span><span class="n">${newCcc}d</span><span class="s">from 274.4d</span></div>
     </div>
     <div class="scen-note" style="margin-top:12px"><b>Scenario:</b> ${interpretation}${presetNote?'<br><br><b>'+invPreset+':</b> '+presetNote:''}</div>`;
+}
+
+/* ---------- ANNUAL OPERATING PLAN (3-statement, interactive) ---------- */
+let aopDrawn=false, aopChart=null, aopStmt='pl', aopPreset='base';
+const AOP=DATA.aop;
+let aopState=Object.assign({},AOP.drivers);
+const AOP_PRESETS={
+  base:{label:'Base plan',color:PALETTE.teal,d:{rev_growth:6.0,gross_margin:75.3,rnd_pct:20.6,sga_pct:19.0,tax_rate:24.5,capex_pct:5.7,dso:94.9,dio:249.7,dpo:70.2,dividend_growth:6.0,debt_paydown:4000}},
+  bull:{label:'Upside',color:PALETTE.green,d:{rev_growth:9.0,gross_margin:77.0,rnd_pct:19.5,sga_pct:17.5,tax_rate:23.0,capex_pct:5.0,dso:88.0,dio:210.0,dpo:78.0,dividend_growth:8.0,debt_paydown:5000}},
+  bear:{label:'Downside',color:PALETTE.rust,d:{rev_growth:2.5,gross_margin:73.0,rnd_pct:21.5,sga_pct:20.5,tax_rate:26.0,capex_pct:6.5,dso:100.0,dio:270.0,dpo:64.0,dividend_growth:4.0,debt_paydown:2500}},
+  lean:{label:'WC-optimised',color:PALETTE.gold,d:{rev_growth:6.0,gross_margin:75.3,rnd_pct:20.6,sga_pct:19.0,tax_rate:24.5,capex_pct:5.7,dso:80.0,dio:190.0,dpo:80.0,dividend_growth:6.0,debt_paydown:5500}},
+};
+
+function projectAOP(){
+  // Three linked statements, FY25 actual base, projected FY26-FY28 from drivers.
+  const s=aopState, P=AOP.pl, B=AOP.bs, C=AOP.cf;
+  const rows=[{
+    year:2025, actual:true,
+    product:P.product, other:P.other, rev:P.total, cogs:P.cogs, gp:P.product-P.cogs,
+    rnd:P.rnd, sga:P.sga, other_op:P.other_op, op:P.op_income, int_exp:P.int_exp,
+    other_inc:P.other_inc, pretax:P.pretax, tax:P.tax, ni:P.net, eps:P.eps,
+    cash:B.cash, rec:B.receivables, inv:B.inventory, ppe:B.ppe, goodwill:B.goodwill,
+    intang:B.intangibles, assets:B.total_assets, debt:B.total_debt, equity:B.equity,
+    da:C.d_a, sbc:C.sbc, dwc:C.d_rec+C.d_inv+C.d_ap+C.d_other_wc, ocf:C.ocf,
+    capex:C.capex, fcf:C.fcf, div:C.dividends, dpay:C.debt_repaid,
+  }];
+  for(let i=1;i<=3;i++){
+    const pv=rows[i-1];
+    const product=pv.product*(1+s.rev_growth/100);
+    const other=pv.other*(1+s.rev_growth/100);
+    const rev=product+other;
+    const cogs=product*(1-s.gross_margin/100);
+    const gp=product-cogs;
+    const rnd=product*s.rnd_pct/100;
+    const sga=product*s.sga_pct/100;
+    const other_op=pv.other_op; // hold amortization flat
+    const op=rev-cogs-rnd-sga-other_op;
+    const int_exp=Math.round(-2800+(pv.dpay?0:0)); // interest eases slightly with paydown
+    const intExp=Math.round(-2800*(1-(s.debt_paydown*i)/120000)); // rough: less debt -> less interest
+    const other_inc=pv.other_inc;
+    const pretax=op+intExp+other_inc;
+    const tax=pretax*s.tax_rate/100;
+    const ni=pretax-tax;
+    const eps=ni/AOP.pl.shares;
+    // Working capital from days -> balances
+    const rec=s.dso/365*rev;
+    const inv=s.dio/365*cogs;
+    const ap=s.dpo/365*cogs;
+    const prevRec=pv.rec, prevInv=pv.inv;
+    const prevAp=(i===1)?(AOP.bs.cur_liab? (pv.dpo!==undefined?pv.dpo:70.2)/365*pv.cogs : 1750):pv._ap;
+    const da=AOP.cf.d_a; // hold D&A ~flat
+    const sbc=AOP.cf.sbc;
+    // change in WC (increase in rec/inv = cash out; increase in ap = cash in)
+    const dwc=-(rec-prevRec)-(inv-prevInv)+(ap-prevAp);
+    const ocf=ni+da+sbc+dwc;
+    const capex=-(rev*s.capex_pct/100);
+    const fcf=ocf+capex;
+    const div=-(Math.abs(pv.div)*(1+s.dividend_growth/100));
+    const dpay=-s.debt_paydown;
+    const cash=pv.cash+fcf+div+dpay;
+    const debt=Math.max(0,pv.debt-s.debt_paydown);
+    const equity=pv.equity+ni+div; // retained earnings + dividends (buybacks=0)
+    const ppe=pv.ppe-capex-da*0.6; // capex adds, depreciation removes (approx)
+    const goodwill=pv.goodwill, intang=pv.intang-da*0.4;
+    const assets=cash+rec+inv+ppe+goodwill+intang+(pv.assets-pv.cash-pv.rec-pv.inv-pv.ppe-pv.goodwill-pv.intang);
+    rows.push({year:2025+i,actual:false,product,other,rev,cogs,gp,rnd,sga,other_op,op,
+      int_exp:intExp,other_inc,pretax,tax,ni,eps,cash,rec,inv,ppe,goodwill,intang,assets,debt,equity,
+      da,sbc,dwc,ocf,capex,fcf,div,dpay,_ap:ap});
+  }
+  return rows;
+}
+
+function drawAOP(){
+  if(aopDrawn)return;aopDrawn=true;
+  // presets
+  $('#aopPresets').innerHTML=Object.entries(AOP_PRESETS).map(([k,v])=>
+    `<button data-k="${k}" class="${k==='base'?'active':''}"><span class="dot" style="background:${v.color}"></span>${v.label}</button>`).join('');
+  $('#aopPresets').addEventListener('click',e=>{
+    const b=e.target.closest('button');if(!b)return;
+    aopPreset=b.dataset.k;aopState=Object.assign({},AOP_PRESETS[aopPreset].d);
+    document.querySelectorAll('#aopPresets button').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    buildAopInputs();renderAOP();
+  });
+  // statement tabs
+  $('#aopStmtTabs').addEventListener('click',e=>{
+    const b=e.target.closest('button');if(!b)return;
+    aopStmt=b.dataset.s;
+    document.querySelectorAll('#aopStmtTabs button').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    renderAOP();
+  });
+  buildAopInputs();renderAOP();
+}
+
+function buildAopInputs(){
+  let h='<h3>Planning drivers</h3>';
+  AOP.driver_meta.forEach(([k,label,unit,mn,mx,step])=>{
+    const val=aopState[k];
+    const disp=unit==='M'?fmtB(val):val+unit;
+    h+=`<div class="scen-input">
+      <label>${label} <span class="v" id="alv-${k}">${disp}</span></label>
+      <input type="range" id="ain-${k}" min="${mn}" max="${mx}" step="${step}" value="${val}">
+    </div>`;
+  });
+  h+=`<div class="scen-note"><b>Base = FY25 actuals.</b> Working-capital days (DSO/DIO/DPO) drive receivables, inventory &amp; payables on the balance sheet and the WC change in cash flow.</div>`;
+  $('#aopInputs').innerHTML=h;
+  AOP.driver_meta.forEach(([k,label,unit])=>{
+    const inp=document.getElementById('ain-'+k);
+    inp.addEventListener('input',()=>{
+      aopState[k]=parseFloat(inp.value);
+      document.getElementById('alv-'+k).textContent=unit==='M'?fmtB(aopState[k]):aopState[k]+unit;
+      document.querySelectorAll('#aopPresets button').forEach(x=>x.classList.remove('active'));
+      aopPreset='custom';
+      renderAOP();
+    });
+  });
+}
+
+function renderAOP(){
+  const r=projectAOP(), grid={grid:{color:PALETTE.grid},border:{display:false}};
+  const labels=r.map(x=>'FY'+(x.year-2000)+(x.actual?' A':' P'));
+  const col=aopPreset==='custom'?PALETTE.ink:(AOP_PRESETS[aopPreset]||{}).color||PALETTE.ink;
+  const f25=r[0], f28=r[3];
+
+  // KPI tiles (always visible)
+  const cagr=(((f28.rev/f25.rev)**(1/3)-1)*100).toFixed(1);
+  const niCagr=(((f28.ni/f25.ni)**(1/3)-1)*100).toFixed(1);
+  $('#aopKpis').innerHTML=[
+    [`FY28 Revenue`, fmtB(f28.rev), `${cagr}% CAGR from FY25`],
+    [`FY28 Net Income`, fmtB(f28.ni), `${niCagr}% CAGR · EPS $${f28.eps.toFixed(2)}`],
+    [`FY28 Free Cash Flow`, fmtB(f28.fcf), `vs ${fmtB(f25.fcf)} FY25`],
+    [`FY28 Net Debt`, fmtB(f28.debt-f28.cash), `cash ${fmtB(f28.cash)} · debt ${fmtB(f28.debt)}`],
+  ].map(([k,v,d])=>`<div class="kpi"><div class="k">${k}</div><div class="v">${v}</div><div class="d">${d}</div></div>`).join('');
+
+  // Chart + table per statement
+  let datasets, title, note, tableRows;
+  const mkLine=(lab,key,c,dash)=>({label:lab,data:r.map(x=>x[key]),borderColor:c,backgroundColor:c+'22',
+    borderWidth:lab==='Revenue'?3:2,tension:.3,pointRadius:4,fill:lab==='Revenue',borderDash:dash||[],yAxisID:'y'});
+
+  if(aopStmt==='pl'){
+    title='Income statement projection';note='Revenue, operating income and net income, FY25 actual → FY28 plan.';
+    datasets=[mkLine('Revenue','rev',col),mkLine('Operating income','op',PALETTE.gold),mkLine('Net income','ni',PALETTE.rust)];
+    tableRows=[['Product sales','product'],['Other revenue','other'],['Total revenue','rev',1],['COGS','cogs'],['Gross profit','gp',1],['R&D','rnd'],['SG&A','sga'],['Other opex (amort.)','other_op'],['Operating income','op',1],['Interest expense','int_exp'],['Other income','other_inc'],['Pretax income','pretax',1],['Tax','tax'],['Net income','ni',1],['EPS ($)','eps',2]];
+  } else if(aopStmt==='bs'){
+    title='Balance sheet projection';note='Cash, inventory and receivables move with the working-capital day assumptions; debt falls with paydown.';
+    datasets=[mkLine('Total assets','assets',col),mkLine('Cash','cash',PALETTE.green),mkLine('Inventory','inv',PALETTE.gold),mkLine('Total debt','debt',PALETTE.rust)];
+    tableRows=[['Cash & investments','cash'],['Receivables','rec'],['Inventory','inv'],['PP&E','ppe'],['Goodwill','goodwill'],['Intangibles','intang'],['Total assets','assets',1],['Total debt','debt'],['Equity','equity',1]];
+  } else {
+    title='Free cash flow projection';note='Net income + D&A ± working-capital change − capex. Inventory/receivable days flow straight into the WC line.';
+    datasets=[mkLine('Operating cash flow','ocf',col),mkLine('Free cash flow','fcf',PALETTE.green),mkLine('Capex','capex',PALETTE.rust)];
+    tableRows=[['Net income','ni'],['D&A','da'],['Stock-based comp','sbc'],['Δ Working capital','dwc'],['Operating cash flow','ocf',1],['Capex','capex'],['Free cash flow','fcf',1],['Dividends','div'],['Debt paydown','dpay']];
+  }
+  $('#aopChartTitle').textContent=title;$('#aopChartNote').textContent=note;
+  const data={labels,datasets};
+  const opts={maintainAspectRatio:false,plugins:{legend:{position:'bottom'},
+    tooltip:{callbacks:{label:c=>c.dataset.label+': '+(aopStmt==='pl'&&c.dataset.label==='EPS ($)'?'$'+c.parsed.y.toFixed(2):fmtB(c.parsed.y))}}},
+    scales:{y:{...grid,ticks:{callback:v=>fmtB(v)}},x:grid}};
+  if(aopChart){aopChart.data=data;aopChart.options=opts;aopChart.update();}
+  else aopChart=new Chart($('#cAop'),{type:'line',data,options:opts});
+
+  // Statement table
+  const fmtCell=(v,kind)=>kind===2?('$'+v.toFixed(2)):fmtB(v);
+  $('#aopTable').innerHTML=`<table style="width:100%;border-collapse:collapse;font-size:12.5px">
+    <thead><tr style="border-bottom:2px solid var(--ink)">
+      <th style="text-align:left;padding:8px 10px;font-family:'IBM Plex Mono',monospace;font-size:9px;text-transform:uppercase;color:var(--muted)">$M unless noted</th>
+      ${r.map(x=>`<th style="text-align:right;padding:8px 10px;font-family:'IBM Plex Mono',monospace;font-size:10px;color:${x.actual?'var(--muted)':'var(--ink)'}">FY${x.year-2000}${x.actual?' A':' P'}</th>`).join('')}
+    </tr></thead><tbody>
+    ${tableRows.map(([lab,key,emph])=>`<tr style="border-bottom:1px solid var(--line);${emph===1?'font-weight:700;background:var(--soft)':''}">
+      <td style="padding:8px 10px;color:var(--ink);${emph===1?'font-weight:700':''}">${lab}</td>
+      ${r.map(x=>`<td style="padding:8px 10px;text-align:right;color:${x[key]<0?'var(--rust)':'var(--ink)'};font-variant-numeric:tabular-nums">${fmtCell(x[key],emph)}</td>`).join('')}
+    </tr>`).join('')}
+    </tbody></table>
+    <div class="scen-note" style="margin-top:10px"><b>A</b> = reported actual · <b>P</b> = projected on current drivers. Preset: <b>${(AOP_PRESETS[aopPreset]||{label:'Custom'}).label}</b>.</div>`;
 }
 
 window.addEventListener('load',()=>{initChatbot();});
